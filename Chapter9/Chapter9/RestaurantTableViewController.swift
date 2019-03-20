@@ -22,15 +22,16 @@ class RestaurantTableViewController: UITableViewController {
     var restaurantIsVisited = Array(repeating: false, count: 21)
     var actionButtonTitle = ""
     var actionButtonHandler = { (_: UIAlertAction) in }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+    let imageName = "heart-tick"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.cellLayoutMarginsFollowReadableWidth = true
+    }
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,13 +45,14 @@ class RestaurantTableViewController: UITableViewController {
         case true:
             actionButtonTitle = "Undo check in"
             actionButtonHandler = { (_: UIAlertAction) in
-                selectedCell.accessoryType = .none
+                selectedCell.accessoryView = .none
                 self.restaurantIsVisited[indexPath.row] = false
             }
         default:
             actionButtonTitle = "Check In"
             actionButtonHandler = { (_: UIAlertAction) in
-                selectedCell.accessoryType = .checkmark
+                let accessoryTypeImageView = UIImageView(image: UIImage(named: self.imageName))
+                selectedCell.accessoryView = accessoryTypeImageView
                 self.restaurantIsVisited[indexPath.row] = true
             }
         }
