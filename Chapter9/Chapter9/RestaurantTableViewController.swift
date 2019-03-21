@@ -22,6 +22,7 @@ class RestaurantTableViewController: UIViewController {
     var restaurantIsVisited = Array(repeating: false, count: 21)
     let delete = "delete"
     let share = "share"
+    var activityController: UIActivityViewController?
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
@@ -73,12 +74,20 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
         let shareAction = UIContextualAction(style: .normal, title: share) {(_, _, completionHandler) in
         let defaultText = "Just checking in at " + self.restaurantNames[indexPath.row]
-        let activityController: UIActivityViewController
+
+            guard let activityController = self.activityController else { return }
 
             if let imageToShare = UIImage(named: self.restaurantNames[indexPath.row]) {
-                activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+                self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
-                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+                self.activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+            }
+
+            if let popoverController = activityController.popoverPresentationController {
+                if let cell = tableView.cellForRow(at: indexPath) {
+                    popoverController.sourceView = cell
+                    popoverController.sourceRect = cell.bounds
+                }
             }
 
             self.present(activityController, animated: true, completion: nil)
@@ -97,6 +106,7 @@ extension RestaurantTableViewController: UITableViewDelegate {
                                               alpha: 1.0)
 
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, shareAction])
+
         return swipeConfiguration
     }
 }
