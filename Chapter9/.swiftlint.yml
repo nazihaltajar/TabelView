@@ -29,7 +29,7 @@ whitelist_rules:
     - legacy_constructor
     - line_length
 #    - nesting
-    - object_literal
+#   - object_literal
     - opening_brace
     - operator_whitespace
     - overridden_super_call
