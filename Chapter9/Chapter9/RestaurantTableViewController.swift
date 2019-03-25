@@ -9,6 +9,8 @@
 import UIKit
 
 class RestaurantTableViewController: UIViewController {
+    @IBOutlet private var tableView: UITableView!
+
     var restaurantNames = ["Cafe Deadend", "Homei", "Teakha", "Cafe Loisl", "Petite Oyster", "For Kee Restaurant",
                            "Po's Atelier", "Bourke Street Bakery", "Haigh's Chocolate", "Palomino Espresso", "Upstate",
                            "Traif", "Graham Avenue Meats And Deli", "Waffle & Wolf", "Five Leaves", "Cafe Lore", "Confessional",
@@ -24,47 +26,26 @@ class RestaurantTableViewController: UIViewController {
 
     let deleteText = "delete"
     let shareText = "share"
-    let tickImageName = "tick"
-    let undoImageName = "undo"
-    let heartImageName = "heart-tick"
+    private let tickImageName = "tick"
+    private let undoImageName = "undo"
+    private let heartImageName = "heart-tick"
+
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "showRestaurantDetail" {
+                if let indexPath = tableView.indexPathForSelectedRow {
+
+                    guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
+                    destinationController.restaurantImageName = restaurantNames[indexPath.row]
+                    destinationController.restaurantTextName = restaurantNames[indexPath.row]
+                    destinationController.restaurantTextType = restaurantTypes[indexPath.row]
+                    destinationController.restaurantTextLocation = restaurantLocations[indexPath.row]
+
+                }
+            }
+        }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let optionMenu = UIAlertController(title: nil, message: "What do you want to do?", preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let callActionHandler = {(action: UIAlertAction) -> Void in
-            let alertMessage = UIAlertController(
-                title: "Service Unavalible",
-                message: "Sorry, tha call feature is not avalible yet. Please retry later.",
-                preferredStyle: .alert)
-            alertMessage.addAction(UIAlertAction(title: "ok", style: .default, handler: nil))
-            self.present(alertMessage, animated: true, completion: nil)
-        }
-
-        let callAction = UIAlertAction (title: "Call" + "123-000-\(indexPath.row)", style: .default, handler: callActionHandler)
-        let checkInAction = UIAlertAction(title: "Check in", style: .default, handler: {
-            (_: UIAlertAction) in
-            let cell = tableView.cellForRow(at: indexPath)
-            cell?.accessoryType = .checkmark
-            self.restaurantIsVisited[indexPath.row] = true
-        })
-
-        optionMenu.addAction(callAction)
-        optionMenu.addAction(checkInAction)
-        optionMenu.addAction(cancelAction)
-
-        present(optionMenu, animated: true, completion: nil)
-        tableView.deselectRow(at: indexPath, animated: false)
-
-        if let popoverController = optionMenu.popoverPresentationController {
-            if let cell = tableView.cellForRow(at: indexPath) {
-                popoverController.sourceView = cell
-                popoverController.sourceRect = cell.bounds
-            }
-        }
-    }
-
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
             let cell = tableView.cellForRow(at: indexPath)
@@ -84,8 +65,7 @@ extension RestaurantTableViewController: UITableViewDelegate {
         }
 
         checkInAction.image = UIImage(named: tickImageName)
-        checkInAction.backgroundColor = .green
-
+        checkInAction.backgroundColor = .checkInColor
         undoCheckIn.image = UIImage(named: undoImageName)
         undoCheckIn.backgroundColor = .undoCheckInColor
 

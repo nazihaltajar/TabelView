@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */; };
+		EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */; };
 		EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B904223B7F860079DE6F /* AppDelegate.swift */; };
 		EE93B90A223B7F860079DE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B908223B7F860079DE6F /* Main.storyboard */; };
 		EE93B90C223B7F870079DE6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90B223B7F870079DE6F /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
+		EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		EE93B901223B7F860079DE6F /* Chapter9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chapter9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE93B904223B7F860079DE6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE93B909223B7F860079DE6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */,
 				EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */,
 				EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */,
+				EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */,
 			);
 			path = Chapter9;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			files = (
 				EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,
+				EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */,
 				EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */,
 				EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */,
 			);
