@@ -30,22 +30,20 @@ class RestaurantTableViewController: UIViewController {
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
 
-        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "showRestaurantDetail" {
-                if let indexPath = tableView.indexPathForSelectedRow {
-
-                    guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-                    destinationController.restaurantImageName = restaurantNames[indexPath.row]
-                    destinationController.restaurantTextName = restaurantNames[indexPath.row]
-                    destinationController.restaurantTextType = restaurantTypes[indexPath.row]
-                    destinationController.restaurantTextLocation = restaurantLocations[indexPath.row]
-
-                }
-            }
-        }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        guard let secondScreen = self.storyboard?.instantiateViewController(withIdentifier: "detailScreen") as? RestaurantDetailViewController else { return }
+        self.navigationController?.pushViewController(secondScreen, animated: true)
+        secondScreen.restaurantImageName = restaurantNames[indexPath.row]
+        secondScreen.restaurantTextName = restaurantNames[indexPath.row]
+        secondScreen.restaurantTextType = restaurantTypes[indexPath.row]
+        secondScreen.restaurantTextLocation = restaurantLocations[indexPath.row]
+    }
+
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
             let cell = tableView.cellForRow(at: indexPath)
