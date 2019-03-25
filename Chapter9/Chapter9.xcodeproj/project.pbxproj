@@ -15,6 +15,8 @@
 		EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */; };
 		EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */; };
 		EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */; };
+		EEB3E2082248F04700E01596 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E2072248F04700E01596 /* Restaurant.swift */; };
+		EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E20E2249042300E01596 /* RestaurantGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		EE93B910223B7F870079DE6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		EEB3E2072248F04700E01596 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
+		EEB3E20E2249042300E01596 /* RestaurantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +64,59 @@
 		EE93B903223B7F860079DE6F /* Chapter9 */ = {
 			isa = PBXGroup;
 			children = (
+				EEB3E20D224903F900E01596 /* Extensions */,
+				EEB3E20B2248FF2500E01596 /* Storyboard */,
+				EEB3E20A2248FF1000E01596 /* Model */,
+				EEB3E20C2248FF4800E01596 /* View */,
+				EEB3E2092248FEC900E01596 /* Controller */,
 				EE93B904223B7F860079DE6F /* AppDelegate.swift */,
-				EE93B908223B7F860079DE6F /* Main.storyboard */,
 				EE93B90B223B7F870079DE6F /* Assets.xcassets */,
-				EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */,
 				EE93B910223B7F870079DE6F /* Info.plist */,
-				EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */,
-				EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */,
-				EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */,
-				EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */,
 			);
 			path = Chapter9;
+			sourceTree = "<group>";
+		};
+		EEB3E2092248FEC900E01596 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */,
+				EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EEB3E20A2248FF1000E01596 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EEB3E2072248F04700E01596 /* Restaurant.swift */,
+				EEB3E20E2249042300E01596 /* RestaurantGroup.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EEB3E20B2248FF2500E01596 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				EE93B908223B7F860079DE6F /* Main.storyboard */,
+				EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		EEB3E20C2248FF4800E01596 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEB3E20D224903F900E01596 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,7 +212,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */,
+				EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,
+				EEB3E2082248F04700E01596 /* Restaurant.swift in Sources */,
 				EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */,
 				EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */,
 				EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */,
