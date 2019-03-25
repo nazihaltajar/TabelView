@@ -10,8 +10,6 @@ import UIKit
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
-    
-    var activityController: UIActivityViewController?
 
     private let deleteText = "delete"
     private let shareText = "share"
@@ -19,15 +17,14 @@ class RestaurantTableViewController: UIViewController {
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
     private var restaurants = [Restaurant]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let restaurantGroup = RestaurantGroup()
         restaurants = restaurantGroup.restaurants
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "showRestaurantDetail" {
                 if let indexPath = tableView.indexPathForSelectedRow {
@@ -69,9 +66,6 @@ extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
             self.restaurants.remove(at: indexPath.row)
-            self.restaurants.remove(at: indexPath.row)
-            self.restaurants.remove(at: indexPath.row)
-            self.restaurants.remove(at: indexPath.row)
 
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             completionHandler(true)
@@ -80,12 +74,12 @@ extension RestaurantTableViewController: UITableViewDelegate {
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
             let defaultText = "Just checking in at " + self.restaurants[indexPath.row].name
 
-            guard let activityController = self.activityController else { return }
+            var activityController: UIActivityViewController
 
             if let imageToShare = UIImage(named: self.restaurants[indexPath.row].image) {
-                self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+                activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
-                self.activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
             }
 
             if let popoverController = activityController.popoverPresentationController {
