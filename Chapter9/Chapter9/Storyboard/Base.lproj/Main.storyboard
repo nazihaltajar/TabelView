@@ -140,9 +140,9 @@
                     </view>
                     <connections>
                         <outlet property="restaurantImageView" destination="36R-2b-n1M" id="f2u-uB-ObS"/>
-                        <outlet property="restaurantLocation" destination="1ux-pP-9Y5" id="w79-hF-XAe"/>
-                        <outlet property="restaurantName" destination="ZDq-FW-OAC" id="8Ki-Vf-x1w"/>
-                        <outlet property="restaurantType" destination="02Z-qS-a1C" id="a2a-Qd-ZwS"/>
+                        <outlet property="restaurantLocationLabel" destination="1ux-pP-9Y5" id="N9F-Ce-11Z"/>
+                        <outlet property="restaurantNameLabel" destination="ZDq-FW-OAC" id="OeN-Yf-xUe"/>
+                        <outlet property="restaurantTypeLabel" destination="02Z-qS-a1C" id="NZX-ix-mvb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UaN-Gt-awT" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -17,18 +17,22 @@ class RestaurantTableViewController: UIViewController {
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
     private var restaurants = [Restaurant]()
+    var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let restaurantGroup = RestaurantGroup()
         restaurants = restaurantGroup.restaurants
+        customizationNavigationBar()
 
+    }
+    private func customizationNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         if let customFont = UIFont(name: "Rubik-Medium", size: 40.0) {
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
-                UIColor(red: 231.0/255, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0), NSAttributedString.Key.font: customFont]
+                UIColor.customColor, NSAttributedString.Key.font: customFont]
         }
     }
 
@@ -37,7 +41,7 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.setupInfoCell(setObj: restaurants[indexPath.row])
+                destinationController.setupInfoCell(restaurant: restaurants[indexPath.row])
             }
         }
     }
@@ -81,22 +85,23 @@ extension RestaurantTableViewController: UITableViewDelegate {
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
             let defaultText = "Just checking in at " + self.restaurants[indexPath.row].name
 
-            var activityController: UIActivityViewController
+            
 
             if let imageToShare = UIImage(named: self.restaurants[indexPath.row].image) {
-                activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
+                self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
-                activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
+                self.activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
             }
 
-            if let popoverController = activityController.popoverPresentationController {
+            if let popoverController = self.activityController?.popoverPresentationController {
                 if let cell = tableView.cellForRow(at: indexPath) {
                     popoverController.sourceView = cell
                     popoverController.sourceRect = cell.bounds
                 }
             }
-
-            self.present(activityController, animated: true, completion: nil)
+            guard let activityViewController = self.activityController else { return }
+            
+            self.present(activityViewController, animated: true, completion: nil)
             completionHandler(true)
         }
 
@@ -121,7 +126,8 @@ extension RestaurantTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
             return UITableViewCell()
         }
-        cell.setupInfo(setInfo: restaurants[indexPath.row] )
+        cell.setupInfo(object: restaurants[indexPath.row] )
+
         return cell
     }
 }
