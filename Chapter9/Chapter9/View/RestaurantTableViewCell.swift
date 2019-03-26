@@ -9,15 +9,22 @@
 import UIKit
 
 class RestaurantTableViewCell: UITableViewCell {
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var locationLabel: UILabel!
-    @IBOutlet var typeLabel: UILabel!
-    @IBOutlet var thumbnailImageView: UIImageView!
+    @IBOutlet private var nameLabel: UILabel!
+    @IBOutlet private var locationLabel: UILabel!
+    @IBOutlet private var typeLabel: UILabel!
+    @IBOutlet private var thumbnailImageView: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.bounds.width / 2
         thumbnailImageView.clipsToBounds  = true
+    }
+
+    public func setupInfo(setInfo: Restaurant) {
+        nameLabel.text = setInfo.name
+        locationLabel.text = setInfo.location
+        typeLabel.text = setInfo.type
+        thumbnailImageView.image = UIImage(named: setInfo.image)
     }
 }

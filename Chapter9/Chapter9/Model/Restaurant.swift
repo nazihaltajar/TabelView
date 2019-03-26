@@ -13,18 +13,17 @@ class Restaurant {
         var type: String
         var location: String
         var image: String
+        var phone: String
+        var description: String
         var isVisited: Bool
 
-    init(name: String, type: String, location: String, image: String, isVisited: Bool) {
+    init(name: String, type: String, location: String, image: String, phone: String, description: String, isVisited: Bool) {
         self.name = name
         self.type = type
         self.location = location
         self.image = image
+        self.phone = phone
+        self.description = description
         self.isVisited = isVisited
-    }
-
-    convenience init() {
-        self.init(name: "", type: "", location: "", image: "", isVisited: false)
-
     }
 }

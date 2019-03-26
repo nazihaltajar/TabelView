@@ -23,17 +23,24 @@ class RestaurantTableViewController: UIViewController {
 
         let restaurantGroup = RestaurantGroup()
         restaurants = restaurantGroup.restaurants
+
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        if let customFont = UIFont(name: "Rubik-Medium", size: 40.0) {
+            navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
+                UIColor(red: 231.0/255, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0), NSAttributedString.Key.font: customFont]
+        }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "showRestaurantDetail" {
-                if let indexPath = tableView.indexPathForSelectedRow {
+        if segue.identifier == "showRestaurantDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                    guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-                    destinationController.restaurant = restaurants[indexPath.row]
-                }
+                destinationController.setupInfoCell(setObj: restaurants[indexPath.row])
             }
         }
+    }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
@@ -66,8 +73,8 @@ extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
             self.restaurants.remove(at: indexPath.row)
-
             self.tableView.deleteRows(at: [indexPath], with: .fade)
+
             completionHandler(true)
         }
 
@@ -114,13 +121,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
             return UITableViewCell()
         }
-
-        cell.nameLabel.text = restaurants[indexPath.row].name
-        cell.thumbnailImageView.image = UIImage(named: restaurants[indexPath.row].image)
-        cell.locationLabel.text = restaurants[indexPath.row].location
-        cell.typeLabel.text = restaurants[indexPath.row].type
-        cell.accessoryType = restaurants[indexPath.row].isVisited ? .checkmark : .none
-
+        cell.setupInfo(setInfo: restaurants[indexPath.row] )
         return cell
     }
 }
