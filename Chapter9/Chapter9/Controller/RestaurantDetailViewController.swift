@@ -9,29 +9,23 @@
 import UIKit
 
 class RestaurantDetailViewController: UIViewController {
-    @IBOutlet private var restaurantImageView: UIImageView!
-    @IBOutlet private var restaurantNameLabel: UILabel!
-    @IBOutlet private var restaurantTypeLabel: UILabel!
-    @IBOutlet private var restaurantLocationLabel: UILabel!
 
-    private var restaurantTextName = ""
-    private var restaurantTextType = ""
-    private var restaurantTextLocation = ""
-    private var restaurantTextImageView = ""
+    @IBOutlet private var restaurantTableView: UITableView!
+    @IBOutlet private var restaurantHeaderView: RestaurantDetailHeaderView!
 
+    var restaurant: Restaurant?
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        restaurantTypeLabel.text = restaurantTextType
-        restaurantNameLabel.text = restaurantTextName
-        restaurantLocationLabel.text = restaurantTextLocation
-        restaurantImageView.image = UIImage(named: restaurantTextImageView)
+        guard let myRestaurant = self.restaurant else { return }
+        setupHeaderView(setObj: myRestaurant)
+
     }
 
-    public func setupInfoCell(restaurant: Restaurant) {
-        restaurantTextName = restaurant.name
-        restaurantTextType = restaurant.type
-        restaurantTextLocation = restaurant.location
-        restaurantTextImageView = restaurant.image
+    public func setupHeaderView(setObj: Restaurant) {
+        restaurantHeaderView.headerImageView.image = UIImage(named: setObj.name)
+        restaurantHeaderView.heartImageView.isHidden = (setObj.isVisited) ? false : true
+        restaurantHeaderView.nameLabel.text = setObj.name
+        restaurantHeaderView.typeLabel.text = setObj.type
     }
 }
