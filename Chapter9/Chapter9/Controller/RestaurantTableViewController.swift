@@ -17,7 +17,6 @@ class RestaurantTableViewController: UIViewController {
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
     private var restaurants = [Restaurant]()
-    private var rest = RestaurantGroup()
     var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
@@ -37,20 +36,17 @@ class RestaurantTableViewController: UIViewController {
         }
     }
 
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showRestaurantDetail" {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-//
-//                destinationController.setupHeaderView(setObj: restaurants[indexPath.row])
-//            }
-//        }
-//    }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRestaurantDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
+                destinationController.restaurantDetail = restaurants[indexPath.row]
+            }
+        }
+    }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
-
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
             let cell = tableView.cellForRow(at: indexPath)
@@ -118,15 +114,6 @@ extension RestaurantTableViewController: UITableViewDelegate {
 }
 
 extension RestaurantTableViewController: UITableViewDataSource {
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let vc = UIStoryboard(name: "Main", bundle: Bundle.main)
-            .instantiateViewController(withIdentifier: "RestaurantDetailViewController")
-            as? RestaurantDetailViewController else { return }
-        vc.restaurant = restaurants[indexPath.row]
-        self.navigationController?.pushViewController(vc, animated: true)
-
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return restaurants.count
     }

@@ -8,24 +8,66 @@
 
 import UIKit
 
-class RestaurantDetailViewController: UIViewController {
+class RestaurantDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet private var restaurantTableView: UITableView!
     @IBOutlet private var restaurantHeaderView: RestaurantDetailHeaderView!
 
-    var restaurant: Restaurant?
+    var restaurantDetail: Restaurant?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let myRestaurant = self.restaurant else { return }
-        setupHeaderView(setObj: myRestaurant)
+        restaurantTableView.delegate = self
+        restaurantTableView.dataSource = self
 
+        setupInfoCell()
     }
 
-    public func setupHeaderView(setObj: Restaurant) {
-        restaurantHeaderView.headerImageView.image = UIImage(named: setObj.name)
-        restaurantHeaderView.heartImageView.isHidden = (setObj.isVisited) ? false : true
-        restaurantHeaderView.nameLabel.text = setObj.name
-        restaurantHeaderView.typeLabel.text = setObj.type
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        switch indexPath.row {
+
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self), for: indexPath) as! RestaurantDetailIconTextCell
+
+            cell.iconImageView.image = UIImage(named: "phone")
+            cell.shortTextLabel.text = restaurantDetail?.phone
+            cell.selectionStyle = .none
+
+            return cell
+
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self), for: indexPath) as! RestaurantDetailIconTextCell
+            cell.iconImageView.image = UIImage(named: "map")
+            cell.shortTextLabel.text = restaurantDetail?.location
+            cell.selectionStyle = .none
+
+            return cell
+
+        case 2:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailTextCell.self), for: indexPath) as! RestaurantDetailTextCell
+            cell.descriptionLabel.text = restaurantDetail?.description
+            cell.selectionStyle = .none
+
+            return cell
+
+        default:
+            fatalError("Failed to instantiate the table view cell for detail view controller")
+        }
+    }
+
+    private func setupInfoCell() {
+        guard let restaurantDetail = restaurantDetail else { return }
+        restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetail)
     }
 }
