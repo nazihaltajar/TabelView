@@ -9,10 +9,5 @@
 import UIKit
 
 class RestaurantDetailTextCell: UITableViewCell {
-
-    @IBOutlet var descriptionLabel: UILabel! {
-        didSet {
-            descriptionLabel.numberOfLines = 0
-        }
-    }
+    @IBOutlet weak var descriptionLabel: UILabel!
 }

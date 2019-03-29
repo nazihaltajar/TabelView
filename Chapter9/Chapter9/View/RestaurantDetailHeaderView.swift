@@ -9,9 +9,8 @@
 import UIKit
 
 class RestaurantDetailHeaderView: UIView {
-
-    @IBOutlet private weak var dimConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var shadowTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var heartImageView: UIImageView!
     @IBOutlet private weak var headerImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
@@ -23,8 +22,8 @@ class RestaurantDetailHeaderView: UIView {
     }
 
     public func setContentOffset(_ offset: CGFloat) {
-        topConstraint.constant = offset
-        dimConstraint.constant = offset
+        headerViewTopConstraint.constant = offset
+        shadowTopConstraint.constant = offset
     }
 
     public func setupHeaderView(restaurantDetails: Restaurant) {
