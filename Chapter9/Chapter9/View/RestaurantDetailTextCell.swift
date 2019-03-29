@@ -9,14 +9,10 @@
 import UIKit
 
 class RestaurantDetailTextCell: UITableViewCell {
-    
+
     @IBOutlet var descriptionLabel: UILabel! {
         didSet {
             descriptionLabel.numberOfLines = 0
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
     }
 }

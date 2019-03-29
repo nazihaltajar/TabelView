@@ -11,8 +11,8 @@ import Foundation
 class RestaurantInfoWithIcon: IRestaurantInfo {
     var Text: String
     var ImageName: String
-    
-    init(Text: String ,ImageName : String ){
+
+    init(Text: String, ImageName: String ) {
         self.Text = Text
         self.ImageName = ImageName
     }

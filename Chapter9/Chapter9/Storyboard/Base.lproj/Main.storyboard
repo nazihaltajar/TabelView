@@ -147,7 +147,7 @@
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nCJ-Ll-Rn1" userLabel="Header Image View">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-3m-Kue" userLabel="Name Label">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGl-3m-Kue" userLabel="Name Label">
                                             <rect key="frame" x="14" y="271.5" width="91.5" height="41.5"/>
                                             <fontDescription key="fontDescription" name="Rubik-Medium" family="Rubik Medium" pointSize="35"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -196,9 +196,11 @@
                                         <constraint firstAttribute="trailing" secondItem="nCJ-Ll-Rn1" secondAttribute="trailing" id="sZz-1n-Sz8"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="dimConstraint" destination="f67-nn-o0j" id="gJR-g6-XDO"/>
                                         <outlet property="headerImageView" destination="nCJ-Ll-Rn1" id="9li-dj-OFS"/>
                                         <outlet property="heartImageView" destination="SC5-Am-dkD" id="E00-VJ-M1o"/>
                                         <outlet property="nameLabel" destination="bGl-3m-Kue" id="CKs-Nu-P37"/>
+                                        <outlet property="topConstraint" destination="98A-iZ-JFE" id="01M-CT-IvU"/>
                                         <outlet property="typeLabel" destination="P4Q-vH-omg" id="bxX-zO-gnk"/>
                                     </connections>
                                 </view>

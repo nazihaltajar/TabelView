@@ -9,10 +9,9 @@
 import Foundation
 
 class RestaurantInfo: IRestaurantInfo {
-    
     var Text: String
 
-    init(Text: String ) {
+    init(Text: String) {
 
      self.Text = Text
     }
