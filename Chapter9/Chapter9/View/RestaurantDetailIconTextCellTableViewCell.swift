@@ -10,8 +10,8 @@ import UIKit
 
 class RestaurantDetailIconTextCell: UITableViewCell {
 
-    @IBOutlet var iconImageView: UIImageView!
-    @IBOutlet var shortTextLabel: UILabel! {
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var shortTextLabel: UILabel! {
         didSet {
             shortTextLabel.numberOfLines = 0
         }

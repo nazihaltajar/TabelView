@@ -10,12 +10,12 @@ import UIKit
 
 class RestaurantDetailHeaderView: UIView {
 
-    @IBOutlet private var dimConstraint: NSLayoutConstraint!
-    @IBOutlet private var topConstraint: NSLayoutConstraint!
-    @IBOutlet private var heartImageView: UIImageView!
-    @IBOutlet private var headerImageView: UIImageView!
-    @IBOutlet private var nameLabel: UILabel!
-    @IBOutlet private var typeLabel: UILabel! {
+    @IBOutlet private weak var dimConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var heartImageView: UIImageView!
+    @IBOutlet private weak var headerImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel! {
         didSet {
             typeLabel.layer.cornerRadius = 5.0
             typeLabel.layer.masksToBounds = true

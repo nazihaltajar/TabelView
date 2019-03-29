@@ -9,7 +9,7 @@
 import UIKit
 
 class RestaurantTableViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private let deleteText = "delete"
     private let shareText = "share"
