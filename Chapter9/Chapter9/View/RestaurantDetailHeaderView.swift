@@ -9,7 +9,7 @@
 import UIKit
 
 class RestaurantDetailHeaderView: UIView {
-
+    
     @IBOutlet var heartImageView: UIImageView!
     @IBOutlet var headerImageView: UIImageView!
     @IBOutlet var nameLabel: UILabel!

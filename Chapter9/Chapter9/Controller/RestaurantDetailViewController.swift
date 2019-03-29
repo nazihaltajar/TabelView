@@ -9,6 +9,9 @@
 import UIKit
 
 class RestaurantDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    
+     //var restaurante : [IRestaurantInfo] = []
 
     @IBOutlet private var restaurantTableView: UITableView!
     @IBOutlet private var restaurantHeaderView: RestaurantDetailHeaderView!
@@ -22,6 +25,8 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
         restaurantTableView.dataSource = self
 
         setupInfoCell()
+        
+       // createRestaurantInfoList()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,10 +69,35 @@ class RestaurantDetailViewController: UIViewController, UITableViewDataSource, U
         default:
             fatalError("Failed to instantiate the table view cell for detail view controller")
         }
+        
+//
+//        if(restaurante[indexPath.row] is RestaurantInfoWithIcon){
+//            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self), for: indexPath) as! RestaurantDetailIconTextCell
+//
+//            cell.iconImageView.image = UIImage(named: "phone")
+//            cell.shortTextLabel.text = restaurantDetail?.phone
+//            cell.selectionStyle = .none
+//
+//            return cell
+//        }
+
+        
+        
+    
+        
     }
 
     private func setupInfoCell() {
         guard let restaurantDetail = restaurantDetail else { return }
         restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetail)
     }
+    
+    
+//    private func createRestaurantInfoList(){
+//       restaurante = [IRestaurantInfo]()
+//        guard let restaurantDetail = restaurantDetail else { return }
+//        RestaurantInfoWithIcon(Text: "phone", ImageName: restaurantDetail.phone)
+//        RestaurantInfoWithIcon(Text: "map", ImageName: restaurantDetail.location)
+//        RestaurantInfo(Text: restaurantDetail.description)
+//    }
 }
