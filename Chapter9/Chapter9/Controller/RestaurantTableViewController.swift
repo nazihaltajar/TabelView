@@ -9,7 +9,7 @@
 import UIKit
 
 class RestaurantTableViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private let deleteText = "delete"
     private let shareText = "share"
@@ -25,8 +25,8 @@ class RestaurantTableViewController: UIViewController {
         let restaurantGroup = RestaurantGroup()
         restaurants = restaurantGroup.restaurants
         customizationNavigationBar()
-
     }
+
     private func customizationNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -40,7 +40,8 @@ class RestaurantTableViewController: UIViewController {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-                destinationController.restaurantDetail = restaurants[indexPath.row]
+
+                destinationController.restaurantDetails = restaurants[indexPath.row]
             }
         }
     }
@@ -123,6 +124,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
             return UITableViewCell()
         }
+
         cell.setupInfo(object: restaurants[indexPath.row] )
 
         return cell

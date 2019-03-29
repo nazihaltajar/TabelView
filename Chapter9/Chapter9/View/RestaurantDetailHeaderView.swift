@@ -9,15 +9,21 @@
 import UIKit
 
 class RestaurantDetailHeaderView: UIView {
-    
-    @IBOutlet var heartImageView: UIImageView!
-    @IBOutlet var headerImageView: UIImageView!
-    @IBOutlet var nameLabel: UILabel!
-    @IBOutlet var typeLabel: UILabel! {
+    @IBOutlet private weak var shadowTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var headerViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var heartImageView: UIImageView!
+    @IBOutlet private weak var headerImageView: UIImageView!
+    @IBOutlet private weak var nameLabel: UILabel!
+    @IBOutlet private weak var typeLabel: UILabel! {
         didSet {
             typeLabel.layer.cornerRadius = 5.0
             typeLabel.layer.masksToBounds = true
         }
+    }
+
+    public func setContentOffset(_ offset: CGFloat) {
+        headerViewTopConstraint.constant = offset
+        shadowTopConstraint.constant = offset
     }
 
     public func setupHeaderView(restaurantDetails: Restaurant) {
