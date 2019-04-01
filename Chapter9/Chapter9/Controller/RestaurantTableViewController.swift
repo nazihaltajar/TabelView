@@ -27,6 +27,16 @@ class RestaurantTableViewController: UIViewController {
         customizationNavigationBar()
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRestaurantDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
+
+                destinationController.restaurantDetails = restaurants[indexPath.row]
+            }
+        }
+    }
+
     private func customizationNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -36,15 +46,10 @@ class RestaurantTableViewController: UIViewController {
                 UIColor.customColor, NSAttributedString.Key.font: customFont]
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRestaurantDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-
-                destinationController.restaurantDetails = restaurants[indexPath.row]
-            }
-        }
+        navigationController?.hidesBarsOnSwipe = true
     }
 }
 
