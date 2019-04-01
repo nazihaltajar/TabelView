@@ -9,29 +9,76 @@
 import UIKit
 
 class RestaurantDetailViewController: UIViewController {
-    @IBOutlet private var restaurantImageView: UIImageView!
-    @IBOutlet private var restaurantNameLabel: UILabel!
-    @IBOutlet private var restaurantTypeLabel: UILabel!
-    @IBOutlet private var restaurantLocationLabel: UILabel!
+    @IBOutlet private weak var restaurantTableView: UITableView!
+    @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
 
-    private var restaurantTextName = ""
-    private var restaurantTextType = ""
-    private var restaurantTextLocation = ""
-    private var restaurantTextImageView = ""
+    var restaurantDetails: Restaurant?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        restaurantTypeLabel.text = restaurantTextType
-        restaurantNameLabel.text = restaurantTextName
-        restaurantLocationLabel.text = restaurantTextLocation
-        restaurantImageView.image = UIImage(named: restaurantTextImageView)
+        restaurantTableView.delegate = self
+        restaurantTableView.dataSource = self
+
+        setupInfoCell()
+    }
+}
+
+extension RestaurantDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        restaurantHeaderView.setContentOffset(scrollView.contentOffset.y)
+    }
+}
+
+extension RestaurantDetailViewController: UITableViewDelegate {
+}
+
+extension RestaurantDetailViewController: UITableViewDataSource {
+    private func setupInfoCell() {
+        guard let restaurantDetail = restaurantDetails else { return }
+
+        restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetail)
     }
 
-    public func setupInfoCell(restaurant: Restaurant) {
-        restaurantTextName = restaurant.name
-        restaurantTextType = restaurant.type
-        restaurantTextLocation = restaurant.location
-        restaurantTextImageView = restaurant.image
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
+                                                     for: indexPath) as! RestaurantDetailIconTextCell
+
+            cell.iconImageView.image = UIImage(named: "phone")
+            cell.shortTextLabel.text = restaurantDetails?.phone
+            cell.selectionStyle = .none
+
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
+                                                     for: indexPath) as! RestaurantDetailIconTextCell
+
+            cell.iconImageView.image = UIImage(named: "map")
+            cell.shortTextLabel.text = restaurantDetails?.location
+            cell.selectionStyle = .none
+
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailTextCell.self),
+                                                     for: indexPath) as! RestaurantDetailTextCell
+
+            cell.descriptionLabel.text = restaurantDetails?.description
+            cell.selectionStyle = .none
+
+            return cell
+
+        default:
+            fatalError("Failed to instantiate the table view cell for detail view controller")
+        }
     }
 }

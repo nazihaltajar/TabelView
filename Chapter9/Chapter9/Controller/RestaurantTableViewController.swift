@@ -9,7 +9,7 @@
 import UIKit
 
 class RestaurantTableViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+    @IBOutlet private weak var tableView: UITableView!
 
     private let deleteText = "delete"
     private let shareText = "share"
@@ -25,11 +25,12 @@ class RestaurantTableViewController: UIViewController {
         let restaurantGroup = RestaurantGroup()
         restaurants = restaurantGroup.restaurants
         customizationNavigationBar()
-
     }
+
     private func customizationNavigationBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.prefersLargeTitles = true
         if let customFont = UIFont(name: "Rubik-Medium", size: 40.0) {
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
                 UIColor.customColor, NSAttributedString.Key.font: customFont]
@@ -41,7 +42,7 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.setupInfoCell(restaurant: restaurants[indexPath.row])
+                destinationController.restaurantDetails = restaurants[indexPath.row]
             }
         }
     }
@@ -85,8 +86,6 @@ extension RestaurantTableViewController: UITableViewDelegate {
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
             let defaultText = "Just checking in at " + self.restaurants[indexPath.row].name
 
-            
-
             if let imageToShare = UIImage(named: self.restaurants[indexPath.row].image) {
                 self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
@@ -100,7 +99,7 @@ extension RestaurantTableViewController: UITableViewDelegate {
                 }
             }
             guard let activityViewController = self.activityController else { return }
-            
+
             self.present(activityViewController, animated: true, completion: nil)
             completionHandler(true)
         }
@@ -126,6 +125,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
             return UITableViewCell()
         }
+
         cell.setupInfo(object: restaurants[indexPath.row] )
 
         return cell
