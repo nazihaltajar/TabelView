@@ -28,6 +28,7 @@ class RestaurantDetailViewController: UIViewController {
         customizeNavigationBar()
 
         setupInfoCell()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,8 +39,7 @@ class RestaurantDetailViewController: UIViewController {
     }
 
     private func customizeNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.setNavigationBarBackgroundImageTransparent()
         navigationController?.navigationBar.tintColor = .white
         restaurantTableView.contentInsetAdjustmentBehavior = .never
     }
