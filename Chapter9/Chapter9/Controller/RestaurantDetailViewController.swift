@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum CellTypes: Int {
+    case phone
+    case location
+    case description
+}
+
 class RestaurantDetailViewController: UIViewController {
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
@@ -19,8 +25,27 @@ class RestaurantDetailViewController: UIViewController {
 
         restaurantTableView.delegate = self
         restaurantTableView.dataSource = self
+        customizeNavigationBar()
 
         setupInfoCell()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.hidesBarsOnSwipe = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
+    private func customizeNavigationBar() {
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.tintColor = .white
+        restaurantTableView.contentInsetAdjustmentBehavior = .never
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
 
@@ -49,8 +74,10 @@ extension RestaurantDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.row {
-        case 0:
+
+        guard let type = CellTypes(rawValue: indexPath.row ) else { return UITableViewCell() }
+        switch type {
+        case .phone:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
                                                      for: indexPath) as! RestaurantDetailIconTextCell
 
@@ -59,7 +86,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
 
             return cell
-        case 1:
+        case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
                                                      for: indexPath) as! RestaurantDetailIconTextCell
 
@@ -68,7 +95,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
 
             return cell
-        case 2:
+        case .description:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailTextCell.self),
                                                      for: indexPath) as! RestaurantDetailTextCell
 
@@ -77,8 +104,6 @@ extension RestaurantDetailViewController: UITableViewDataSource {
 
             return cell
 
-        default:
-            fatalError("Failed to instantiate the table view cell for detail view controller")
         }
     }
 }
