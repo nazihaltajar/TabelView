@@ -8,6 +8,15 @@
 
 import UIKit
 
+enum CellIdentifier: String {
+    case restaurantCellIdentifier
+}
+
+protocol CustomCell: class {
+    var cellType: CellIdentifier { get }
+    func configure(withModel: Restaurant)
+}
+
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
 
@@ -121,13 +130,11 @@ extension RestaurantTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "restaurantCellIdentifier"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
-            return UITableViewCell()
-        }
+        let customCell = tableView.dequeueReusableCell(
+            withIdentifier: CellIdentifier.restaurantCellIdentifier.rawValue, for: indexPath) as? CustomCell
 
-        cell.setupInfo(object: restaurants[indexPath.row] )
+        customCell?.configure(withModel: restaurants[indexPath.row])
 
-        return cell
+        return customCell as! UITableViewCell
     }
 }
