@@ -28,7 +28,6 @@ class RestaurantDetailViewController: UIViewController {
         customizeNavigationBar()
 
         setupInfoCell()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
