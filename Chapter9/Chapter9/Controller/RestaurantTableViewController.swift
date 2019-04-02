@@ -134,11 +134,12 @@ extension RestaurantTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let myRestaurantData = restaurants[indexPath.row]
         let customCell = tableView.dequeueReusableCell(
-            withIdentifier: CellIdentifier.restaurantCellIdentifier.rawValue, for: indexPath) as? CustomCell
+            withIdentifier: myRestaurantData.cellType.rawValue, for: indexPath) as? CustomCell
 
-        customCell?.configure(withModel: restaurants[indexPath.row])
+        customCell?.configure(withModel: myRestaurantData)
 
-        return customCell as! UITableViewCell
+        return customCell as? UITableViewCell ?? UITableViewCell()
     }
 }
