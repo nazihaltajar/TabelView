@@ -8,6 +8,15 @@
 
 import UIKit
 
+enum CellIdentifier: String {
+    case restaurantCellIdentifier
+}
+
+protocol CustomCell: class {
+    var cellType: CellIdentifier { get }
+    func configure(withModel: Restaurant)
+}
+
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
 
@@ -37,9 +46,8 @@ class RestaurantTableViewController: UIViewController {
         }
     }
 
-    private func customizationNavigationBar() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+    public func customizationNavigationBar() {
+        navigationController?.setNavigationBarBackgroundImageTransparent()
         navigationController?.navigationBar.prefersLargeTitles = true
         if let customFont = UIFont(name: "Rubik-Medium", size: 40.0) {
             navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor:
@@ -126,13 +134,12 @@ extension RestaurantTableViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "restaurantCellIdentifier"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? RestaurantTableViewCell else {
-            return UITableViewCell()
-        }
+        let restaurant = restaurants[indexPath.row]
+        let customCell = tableView.dequeueReusableCell(
+            withIdentifier: restaurant.cellType.rawValue, for: indexPath) as? CustomCell
 
-        cell.setupInfo(object: restaurants[indexPath.row] )
+        customCell?.configure(withModel: restaurant)
 
-        return cell
+        return customCell as? UITableViewCell ?? UITableViewCell()
     }
 }

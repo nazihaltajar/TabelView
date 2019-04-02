@@ -16,6 +16,7 @@ class Restaurant {
         var phone: String
         var description: String
         var isVisited: Bool
+        var cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
 
     init(name: String = "", type: String = "", location: String = "", image: String = "", phone: String = "", description: String = "", isVisited: Bool = false) {
         self.name = name

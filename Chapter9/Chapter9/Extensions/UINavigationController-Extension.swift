@@ -13,4 +13,9 @@ extension UINavigationController {
     open override var childForStatusBarStyle: UIViewController? {
         return topViewController
     }
+
+    public func setNavigationBarBackgroundImageTransparent() {
+        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationBar.shadowImage = UIImage()
+    }
 }

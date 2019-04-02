@@ -21,10 +21,17 @@ class RestaurantTableViewCell: UITableViewCell {
         thumbnailImageView.clipsToBounds  = true
     }
 
-    public func setupInfo(object: Restaurant) {
-        nameLabel.text = object.name
-        locationLabel.text = object.location
-        typeLabel.text = object.type
-        thumbnailImageView.image = UIImage(named: object.image)
+}
+
+extension RestaurantTableViewCell: CustomCell {
+    var cellType: CellIdentifier {
+        return .restaurantCellIdentifier
+    }
+
+    func configure(withModel restaurant: Restaurant) {
+        nameLabel.text = restaurant.name
+        locationLabel.text = restaurant.location
+        typeLabel.text = restaurant.type
+        thumbnailImageView.image = UIImage(named: restaurant.image)
     }
 }
