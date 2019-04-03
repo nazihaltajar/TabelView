@@ -12,6 +12,8 @@ enum CellTypes: Int {
     case phone
     case location
     case description
+    case headerMap
+    case map
 }
 
 class RestaurantDetailViewController: UIViewController {
@@ -26,8 +28,13 @@ class RestaurantDetailViewController: UIViewController {
         restaurantTableView.delegate = self
         restaurantTableView.dataSource = self
         customizeNavigationBar()
-
         setupInfoCell()
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showMap" {
+            let destinationController = segue.destination as! MapViewController
+            destinationController.restaurant = restaurantDetails!
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,11 +42,11 @@ class RestaurantDetailViewController: UIViewController {
 
         navigationController?.hidesBarsOnSwipe = false
         navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.setBackButtonTintColor(mycolor: .white)
     }
 
     private func customizeNavigationBar() {
         navigationController?.setNavigationBarBackgroundImageTransparent()
-        navigationController?.navigationBar.tintColor = .white
         restaurantTableView.contentInsetAdjustmentBehavior = .never
     }
 
@@ -69,7 +76,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,7 +109,21 @@ extension RestaurantDetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
 
             return cell
+        case .headerMap:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self),
+                                                     for: indexPath) as! RestaurantDetailSeparatorCell
 
+           cell.titleLabel.text = "HOW TO GET HERE"
+           cell.selectionStyle = .none
+
+            return cell
+        case .map:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self),
+                                                     for: indexPath) as! RestaurantDetailMapCell
+
+            cell.configure(location: restaurantDetails?.location ?? "")
+
+            return cell
         }
     }
 }
