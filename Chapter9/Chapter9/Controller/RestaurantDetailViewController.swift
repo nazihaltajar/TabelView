@@ -19,6 +19,18 @@ enum CellTypes: Int {
 class RestaurantDetailViewController: UIViewController {
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
+    @IBAction func close (segue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
+        if let rating = segue.identifier {
+            self.restaurantDetails?.rating = rating
+            self.restaurantHeaderView.ratingImageView.image = UIImage(named: rating)
+            setRate()
+        }
+        dismiss(animated: true, completion: nil)
+
+    }
 
     var restaurantDetails: Restaurant?
 
@@ -30,9 +42,26 @@ class RestaurantDetailViewController: UIViewController {
         customizeNavigationBar()
         setupInfoCell()
     }
+
+    private func setRate() {
+
+            let scaleTransform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+            self.restaurantHeaderView.ratingImageView.transform = scaleTransform
+            self.restaurantHeaderView.ratingImageView.alpha = 0
+
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.7, options: [], animations: {
+                self.restaurantHeaderView.ratingImageView.transform = .identity
+                self.restaurantHeaderView.ratingImageView.alpha = 1
+            }, completion: nil)
+
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
             let destinationController = segue.destination as! MapViewController
+            destinationController.restaurant = restaurantDetails!
+        }
+        if segue.identifier == "showReview" {
+            let destinationController = segue.destination as! ReviewViewController
             destinationController.restaurant = restaurantDetails!
         }
     }

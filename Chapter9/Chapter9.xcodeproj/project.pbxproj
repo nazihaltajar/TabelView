@@ -26,6 +26,7 @@
 		EE8D92CE2254A16E005C9C86 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8D92CD2254A16E005C9C86 /* MapViewController.swift */; };
 		EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */; };
 		EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */; };
+		EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9054682255FA36009428B3 /* ReviewViewController.swift */; };
 		EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */; };
 		EE92D2A6224E2D85005E8AF8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE92D2A5224E2D85005E8AF8 /* Default-568h@2x.png */; };
 		EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B904223B7F860079DE6F /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		EE8D92CD2254A16E005C9C86 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
+		EE9054682255FA36009428B3 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController-Extension.swift"; sourceTree = "<group>"; };
 		EE92D2A5224E2D85005E8AF8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		EE93B901223B7F860079DE6F /* Chapter9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chapter9.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -157,6 +159,7 @@
 				EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */,
 				EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */,
 				EE8D92CD2254A16E005C9C86 /* MapViewController.swift */,
+				EE9054682255FA36009428B3 /* ReviewViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 			files = (
 				EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */,
 				EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */,
+				EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */,
 				EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */,
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
 				EE826EB6224D00B400BA1588 /* RestaurantDetailIconTextCellTableViewCell.swift in Sources */,

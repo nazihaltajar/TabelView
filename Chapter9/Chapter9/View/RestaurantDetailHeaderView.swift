@@ -13,6 +13,7 @@ class RestaurantDetailHeaderView: UIView {
     @IBOutlet private weak var headerViewTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var heartImageView: UIImageView!
     @IBOutlet private weak var headerImageView: UIImageView!
+    @IBOutlet weak var ratingImageView: UIImageView!
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var typeLabel: UILabel! {
         didSet {
