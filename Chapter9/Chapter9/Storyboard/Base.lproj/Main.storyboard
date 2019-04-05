@@ -329,7 +329,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ess-cV-SXx">
-                                                    <rect key="frame" x="-10" y="0.0" width="434" height="214.5"/>
+                                                    <rect key="frame" x="-20" y="0.0" width="454" height="214.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="214.5" id="99t-f7-xqj">
                                                             <variation key="heightClass=regular-widthClass=regular" constant="600"/>
@@ -342,8 +342,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="Ess-cV-SXx" secondAttribute="bottom" id="S3t-zp-zy4">
                                                     <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
                                                 </constraint>
-                                                <constraint firstAttribute="trailing" secondItem="Ess-cV-SXx" secondAttribute="trailing" constant="-10" id="eO9-ub-QVc"/>
-                                                <constraint firstItem="Ess-cV-SXx" firstAttribute="leading" secondItem="arn-UM-1oi" secondAttribute="leading" constant="-10" id="lQF-06-dUi"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ess-cV-SXx" secondAttribute="trailing" constant="-20" id="eO9-ub-QVc"/>
+                                                <constraint firstItem="Ess-cV-SXx" firstAttribute="leading" secondItem="arn-UM-1oi" secondAttribute="leading" constant="-20" id="lQF-06-dUi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

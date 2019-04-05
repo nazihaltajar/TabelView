@@ -23,13 +23,14 @@ class RestaurantDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
+
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
-            self.restaurantHeaderView.ratingImageView.image = UIImage(named: rating)
-            setRate()
+            if let restaurantDetails = self.restaurantDetails {
+                self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
+            }
         }
         dismiss(animated: true, completion: nil)
-
     }
 
     var restaurantDetails: Restaurant?
@@ -43,26 +44,16 @@ class RestaurantDetailViewController: UIViewController {
         setupInfoCell()
     }
 
-    private func setRate() {
-
-            let scaleTransform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-            self.restaurantHeaderView.ratingImageView.transform = scaleTransform
-            self.restaurantHeaderView.ratingImageView.alpha = 0
-
-            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.7, options: [], animations: {
-                self.restaurantHeaderView.ratingImageView.transform = .identity
-                self.restaurantHeaderView.ratingImageView.alpha = 1
-            }, completion: nil)
-
-    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let restaurant = restaurantDetails else { return }
+
         if segue.identifier == "showMap" {
             let destinationController = segue.destination as! MapViewController
-            destinationController.restaurant = restaurantDetails!
+            destinationController.restaurant = restaurant
         }
         if segue.identifier == "showReview" {
             let destinationController = segue.destination as! ReviewViewController
-            destinationController.restaurant = restaurantDetails!
+            destinationController.restaurant = restaurant
         }
     }
 
@@ -142,8 +133,8 @@ extension RestaurantDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self),
                                                      for: indexPath) as! RestaurantDetailSeparatorCell
 
-           cell.titleLabel.text = "HOW TO GET HERE"
-           cell.selectionStyle = .none
+            cell.titleLabel.text = "HOW TO GET HERE"
+            cell.selectionStyle = .none
 
             return cell
         case .map:

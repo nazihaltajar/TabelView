@@ -64,7 +64,7 @@ extension MapViewController: MKMapViewDelegate {
         let markIdentifier = markName
         var annotationView: MKMarkerAnnotationView? = mapView.dequeueReusableAnnotationView(withIdentifier: markIdentifier) as? MKMarkerAnnotationView
 
-         if annotation.isKind(of: MKUserLocation.self) {
+        if annotation.isKind(of: MKUserLocation.self) {
             return nil
         }
 
