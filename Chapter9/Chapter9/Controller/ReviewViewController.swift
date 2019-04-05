@@ -17,16 +17,7 @@ class ReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    backgroundImageView.image = UIImage(named: restaurant.image)
-    let blurEffect = UIBlurEffect(style: .dark)
-    let blurEffectView = UIVisualEffectView(effect: blurEffect)
-    blurEffectView.frame = view.bounds
-    backgroundImageView.addSubview(blurEffectView)
-    blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-    blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
-    blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
-    blurEffectView.leftAnchor.constraint(equalTo: backgroundImageView.leftAnchor).isActive = true
-    blurEffectView.rightAnchor.constraint(equalTo: backgroundImageView.rightAnchor).isActive = true
+        setUpBlurEffect()
 
     let moveRightTransform = CGAffineTransform(translationX: 600, y: 0)
     let scaleUpTransform = CGAffineTransform(scaleX: 5.0, y: 5.0)
@@ -40,8 +31,8 @@ class ReviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        UIView.animate(withDuration: 2.0) {
 
+        UIView.animate(withDuration: 2.0) {
             var delays = 0.1
             var damping = 0.2
             var velocety = 0.3
@@ -57,5 +48,17 @@ class ReviewViewController: UIViewController {
 
             }
         }
+    }
+    private func setUpBlurEffect() {
+        backgroundImageView.image = UIImage(named: restaurant.image)
+        let blurEffect = UIBlurEffect(style: .dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        backgroundImageView.addSubview(blurEffectView)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
+        blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
+        blurEffectView.leftAnchor.constraint(equalTo: backgroundImageView.leftAnchor).isActive = true
+        blurEffectView.rightAnchor.constraint(equalTo: backgroundImageView.rightAnchor).isActive = true
     }
 }
