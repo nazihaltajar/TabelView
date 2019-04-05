@@ -5,12 +5,12 @@
 //  Created by Nazih Al Tajar on 04/04/2019.
 //  Copyright © 2019 sss. All rights reserved.
 //
-
 import UIKit
 
 class ReviewViewController: UIViewController {
     @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var rateButtons: [UIButton]!
+    @IBOutlet var closeButton: UIButton!
 
     var restaurant = Restaurant()
 
@@ -18,10 +18,17 @@ class ReviewViewController: UIViewController {
         super.viewDidLoad()
 
         setUpBlurEffect()
+        setTransformActions()
+    }
 
+    private func setTransformActions () {
         let moveRightTransform = CGAffineTransform(translationX: 600, y: 0)
         let scaleUpTransform = CGAffineTransform(scaleX: 5.0, y: 5.0)
         let moveScaleTransform = scaleUpTransform.concatenating(moveRightTransform)
+        let moveFromUpDownTransform = CGAffineTransform(translationX: 0, y: -200)
+
+        closeButton.transform = moveFromUpDownTransform
+        closeButton.alpha = 0
 
         for rateButton in rateButtons {
             rateButton.transform = moveScaleTransform
@@ -31,6 +38,10 @@ class ReviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        UIView.animate(withDuration: 2.0) {
+            self.closeButton.alpha = 1.0
+            self.closeButton.transform = .identity
+        }
 
         UIView.animate(withDuration: 2.0) {
             var delays = 0.1
