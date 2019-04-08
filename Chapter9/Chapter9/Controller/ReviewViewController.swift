@@ -38,25 +38,20 @@ class ReviewViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        UIView.animate(withDuration: 2.0) {
-            self.closeButton.alpha = 1.0
-            self.closeButton.transform = .identity
-        }
 
         UIView.animate(withDuration: 2.0) {
             var delays = 0.1
-            var damping = 0.2
-            var velocity = 0.3
 
-            for index in 0...4 {
-                UIView.animate(withDuration: 0.2, delay: delays + 0.3, usingSpringWithDamping: CGFloat(damping + 0.3), initialSpringVelocity: CGFloat(velocity + 0.3),
+            self.closeButton.alpha = 1.0
+            self.closeButton.transform = .identity
+            for index in 0...self.rateButtons.count - 1 {
+                UIView.animate(withDuration: 0.4, delay: delays, usingSpringWithDamping: CGFloat(0.1), initialSpringVelocity: CGFloat(0.2),
                                options: [], animations: {
                                 self.rateButtons[index].alpha = 1.0
                                 self.rateButtons[index].transform = .identity
                 }, completion: nil)
-                delays += 0.5
-                damping -= 0.15
-                velocity -= 0.3
+                delays += 0.05
+
             }
         }
     }

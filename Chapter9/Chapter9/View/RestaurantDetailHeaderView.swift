@@ -33,14 +33,18 @@ class RestaurantDetailHeaderView: UIView {
         nameLabel.text = restaurantDetails.name
         typeLabel.text = restaurantDetails.type
         ratingImageView.image = UIImage(named: restaurantDetails.rating)
+        animateImageView(ratingImageView)
+    }
 
+    private func animateImageView(_ imageView: UIImageView) {
         let scaleTransform = CGAffineTransform(scaleX: 0.1, y: 0.1)
-        ratingImageView.transform = scaleTransform
-        ratingImageView.alpha = 0
+        imageView.transform = scaleTransform
+        imageView.alpha = 0
 
         UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 0.7, options: [], animations: {
-            self.ratingImageView.transform = .identity
-            self.ratingImageView.alpha = 1
+            imageView.transform = .identity
+            imageView.alpha = 1
         }, completion: nil)
+
     }
 }
