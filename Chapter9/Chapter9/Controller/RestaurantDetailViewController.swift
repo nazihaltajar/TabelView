@@ -19,6 +19,19 @@ enum CellTypes: Int {
 class RestaurantDetailViewController: UIViewController {
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
+    @IBAction func close (segue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+    }
+    @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
+
+        if let rating = segue.identifier {
+            self.restaurantDetails?.rating = rating
+            if let restaurantDetails = self.restaurantDetails {
+                self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
+            }
+        }
+        dismiss(animated: true, completion: nil)
+    }
 
     var restaurantDetails: Restaurant?
 
@@ -30,10 +43,17 @@ class RestaurantDetailViewController: UIViewController {
         customizeNavigationBar()
         setupInfoCell()
     }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let restaurant = restaurantDetails else { return }
+
         if segue.identifier == "showMap" {
             let destinationController = segue.destination as! MapViewController
-            destinationController.restaurant = restaurantDetails!
+            destinationController.restaurant = restaurant
+        }
+        if segue.identifier == "showReview" {
+            let destinationController = segue.destination as! ReviewViewController
+            destinationController.restaurant = restaurant
         }
     }
 
@@ -113,8 +133,8 @@ extension RestaurantDetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self),
                                                      for: indexPath) as! RestaurantDetailSeparatorCell
 
-           cell.titleLabel.text = "HOW TO GET HERE"
-           cell.selectionStyle = .none
+            cell.titleLabel.text = "HOW TO GET HERE"
+            cell.selectionStyle = .none
 
             return cell
         case .map:

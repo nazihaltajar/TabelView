@@ -20,7 +20,6 @@ class RestaurantTableViewCell: UITableViewCell {
         thumbnailImageView.layer.cornerRadius = thumbnailImageView.bounds.width / 2
         thumbnailImageView.clipsToBounds  = true
     }
-
 }
 
 extension RestaurantTableViewCell: CustomCell {

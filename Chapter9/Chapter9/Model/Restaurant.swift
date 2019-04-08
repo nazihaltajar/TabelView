@@ -17,8 +17,10 @@ class Restaurant {
         var description: String
         var isVisited: Bool
         var cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
+        var rating: String
 
-    init(name: String = "", type: String = "", location: String = "", image: String = "", phone: String = "", description: String = "", isVisited: Bool = false) {
+    init(name: String = "", type: String = "", location: String = "", image: String = "",
+         phone: String = "", description: String = "", isVisited: Bool = false, rating: String = " ") {
         self.name = name
         self.type = type
         self.location = location
@@ -26,5 +28,7 @@ class Restaurant {
         self.phone = phone
         self.description = description
         self.isVisited = isVisited
+        self.rating = rating
+
     }
 }
