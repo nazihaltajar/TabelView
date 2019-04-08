@@ -8,10 +8,9 @@
 import UIKit
 
 class ReviewViewController: UIViewController {
-    @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var rateButtons: [UIButton]!
-    @IBOutlet var closeButton: UIButton!
-
+    @IBOutlet weak private var backgroundImageView: UIImageView!
+    @IBOutlet weak private var closeButton: UIButton!
+    @IBOutlet private var rateButtons: [UIButton]!
     var restaurant = Restaurant()
 
     override func viewDidLoad() {
@@ -30,7 +29,7 @@ class ReviewViewController: UIViewController {
         closeButton.transform = moveFromUpDownTransform
         closeButton.alpha = 0
 
-        for rateButton in rateButtons {
+        rateButtons.forEach { rateButton in
             rateButton.transform = moveScaleTransform
             rateButton.alpha = 0
         }
@@ -44,15 +43,15 @@ class ReviewViewController: UIViewController {
 
             self.closeButton.alpha = 1.0
             self.closeButton.transform = .identity
-            for index in 0...self.rateButtons.count - 1 {
+            self.rateButtons.forEach({ (button) in
                 UIView.animate(withDuration: 0.4, delay: delays, usingSpringWithDamping: CGFloat(0.1), initialSpringVelocity: CGFloat(0.2),
                                options: [], animations: {
-                                self.rateButtons[index].alpha = 1.0
-                                self.rateButtons[index].transform = .identity
+                                button.alpha = 1.0
+                                button.transform = .identity
                 }, completion: nil)
                 delays += 0.05
+                })
 
-            }
         }
     }
 
