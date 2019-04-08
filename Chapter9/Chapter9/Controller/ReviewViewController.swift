@@ -5,25 +5,31 @@
 //  Created by Nazih Al Tajar on 04/04/2019.
 //  Copyright © 2019 sss. All rights reserved.
 //
-
 import UIKit
 
 class ReviewViewController: UIViewController {
-    @IBOutlet var backgroundImageView: UIImageView!
-    @IBOutlet var rateButtons: [UIButton]!
-
+    @IBOutlet weak private var backgroundImageView: UIImageView!
+    @IBOutlet weak private var closeButton: UIButton!
+    @IBOutlet private var rateButtons: [UIButton]!
     var restaurant = Restaurant()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setUpBlurEffect()
+        setTransformActions()
+    }
 
+    private func setTransformActions () {
         let moveRightTransform = CGAffineTransform(translationX: 600, y: 0)
         let scaleUpTransform = CGAffineTransform(scaleX: 5.0, y: 5.0)
         let moveScaleTransform = scaleUpTransform.concatenating(moveRightTransform)
+        let moveFromUpDownTransform = CGAffineTransform(translationX: 0, y: -200)
 
-        for rateButton in rateButtons {
+        closeButton.transform = moveFromUpDownTransform
+        closeButton.alpha = 0
+
+        rateButtons.forEach { rateButton in
             rateButton.transform = moveScaleTransform
             rateButton.alpha = 0
         }
@@ -34,19 +40,18 @@ class ReviewViewController: UIViewController {
 
         UIView.animate(withDuration: 2.0) {
             var delays = 0.1
-            var damping = 0.2
-            var velocity = 0.3
 
-            for index in 0...4 {
-                UIView.animate(withDuration: 0.2, delay: delays + 0.3, usingSpringWithDamping: CGFloat(damping + 0.3), initialSpringVelocity: CGFloat(velocity + 0.3),
+            self.closeButton.alpha = 1.0
+            self.closeButton.transform = .identity
+            self.rateButtons.forEach({ (button) in
+                UIView.animate(withDuration: 0.4, delay: delays, usingSpringWithDamping: CGFloat(0.1), initialSpringVelocity: CGFloat(0.2),
                                options: [], animations: {
-                                self.rateButtons[index].alpha = 1.0
-                                self.rateButtons[index].transform = .identity
+                                button.alpha = 1.0
+                                button.transform = .identity
                 }, completion: nil)
-                delays += 0.5
-                damping -= 0.15
-                velocity -= 0.3
-            }
+                delays += 0.05
+                })
+
         }
     }
 
