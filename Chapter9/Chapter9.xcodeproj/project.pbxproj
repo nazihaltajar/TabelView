@@ -29,6 +29,8 @@
 		EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9054682255FA36009428B3 /* ReviewViewController.swift */; };
 		EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */; };
 		EE92D2A6224E2D85005E8AF8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EE92D2A5224E2D85005E8AF8 /* Default-568h@2x.png */; };
+		EE937B36225B69CF00BD5F2D /* RoundedTextFiled.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */; };
+		EE937B38225B713100BD5F2D /* NewRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */; };
 		EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B904223B7F860079DE6F /* AppDelegate.swift */; };
 		EE93B90A223B7F860079DE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B908223B7F860079DE6F /* Main.storyboard */; };
 		EE93B90C223B7F870079DE6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90B223B7F870079DE6F /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 		EE9054682255FA36009428B3 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
 		EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController-Extension.swift"; sourceTree = "<group>"; };
 		EE92D2A5224E2D85005E8AF8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFiled.swift; sourceTree = "<group>"; };
+		EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRestaurantViewController.swift; sourceTree = "<group>"; };
 		EE93B901223B7F860079DE6F /* Chapter9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chapter9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE93B904223B7F860079DE6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE93B909223B7F860079DE6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -160,6 +164,7 @@
 				EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */,
 				EE8D92CD2254A16E005C9C86 /* MapViewController.swift */,
 				EE9054682255FA36009428B3 /* ReviewViewController.swift */,
+				EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 				EE826EB7224D05FE00BA1588 /* RestaurantDetailTextCell.swift */,
 				EE8D92C92253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift */,
 				EE8D92CB2253B7B5005C9C86 /* RestaurantDetailMapCell.swift */,
+				EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +321,7 @@
 			files = (
 				EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */,
 				EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */,
+				EE937B38225B713100BD5F2D /* NewRestaurantViewController.swift in Sources */,
 				EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */,
 				EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */,
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
@@ -324,6 +331,7 @@
 				EE8D92CA2253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift in Sources */,
 				EE8D92CC2253B7B5005C9C86 /* RestaurantDetailMapCell.swift in Sources */,
 				EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */,
+				EE937B36225B69CF00BD5F2D /* RoundedTextFiled.swift in Sources */,
 				EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */,
 				EE7F6D70224BA9BE0043A3A0 /* RestaurantDetailHeaderView.swift in Sources */,
 				EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */,

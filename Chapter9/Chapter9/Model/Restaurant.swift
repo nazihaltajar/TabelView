@@ -29,6 +29,5 @@ class Restaurant {
         self.description = description
         self.isVisited = isVisited
         self.rating = rating
-
     }
 }
