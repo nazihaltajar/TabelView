@@ -95,7 +95,6 @@ extension NewRestaurantController {
                     self.present(imagePicker, animated: true, completion: nil)
                 }
             })
-
             photoSourceRequestController.addAction(cameraAction)
             photoSourceRequestController.addAction(photoLibraryAction)
 
@@ -106,7 +105,6 @@ extension NewRestaurantController {
                     popoverController.permittedArrowDirections = .any
                 }
             }
-
             present(photoSourceRequestController, animated: true, completion: nil)
         }
     }
