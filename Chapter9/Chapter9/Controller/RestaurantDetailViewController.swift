@@ -23,7 +23,6 @@ class RestaurantDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
-
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
             if let restaurantDetails = self.restaurantDetails {
