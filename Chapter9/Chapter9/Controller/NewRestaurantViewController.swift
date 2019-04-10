@@ -56,15 +56,12 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
-        guard
-            let name = nameTextField.text, !name.isEmpty,
+        guard let name = nameTextField.text, !name.isEmpty,
             let type = typeTextField.text, !type.isEmpty,
             let address = addressTextField.text, !address.isEmpty,
             let phone = phoneTextField.text, !phone.isEmpty,
             let description = descriptionTextView.text, !description.isEmpty
-        else {
-        return false
-        }
+        else { return false }
 
         print (name, type, address, phone, description)
 
