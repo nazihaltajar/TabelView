@@ -8,44 +8,73 @@
 
 import UIKit
 
-class NewRestaurantController: UITableViewController, UINavigationControllerDelegate {
-    @IBOutlet weak var photoImageView: UIImageView!
-    @IBOutlet weak var nameTextField: RoundedTextFiled! {
+class NewRestaurantViewController: UITableViewController, UINavigationControllerDelegate {
+    @IBOutlet weak private var photoImageView: UIImageView!
+    @IBOutlet weak private var nameTextField: RoundedTextFiled! {
         didSet {
-            nameTextField.tag  = 1
             nameTextField.delegate = self
         }
     }
-    @IBOutlet weak var typeTextField: RoundedTextFiled! {
+    @IBOutlet weak private var typeTextField: RoundedTextFiled! {
         didSet {
-            typeTextField.tag = 2
             typeTextField.delegate = self
         }
     }
     @IBOutlet weak var addressTextField: RoundedTextFiled! {
         didSet {
-            addressTextField.tag = 3
             addressTextField.delegate = self
         }
     }
     @IBOutlet weak var phoneTextField: RoundedTextFiled! {
         didSet {
-            phoneTextField.tag = 4
             phoneTextField.delegate = self
         }
     }
     @IBOutlet weak var descriptionTextView: UITextView! {
         didSet {
-            descriptionTextView.tag = 5
             descriptionTextView.layer.cornerRadius = 5.0
             descriptionTextView.layer.masksToBounds = true
         }
     }
+    @IBAction func saveButtonTapped() {
+
+        if checkIfTextFieldsAreEmpty() {
+
+            //performSegue(withIdentifier: "unwindToHomeWithSegue", sender: self)
+
+        } else {
+
+            let alertMessage = UIAlertController(title: "Ooops", message: "We can't proceed because one of the fields is blank. Please note that all fields are required.", preferredStyle: .alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertMessage, animated: true, completion: nil)
+        }
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
+    }
+
+    func checkIfTextFieldsAreEmpty () -> Bool {
+
+        guard let name = nameTextField.text, !name.isEmpty else {
+            return false
+        }
+        guard let type = typeTextField.text, !type.isEmpty else {
+            return false
+        }
+        guard let address = addressTextField.text, !address.isEmpty else {
+            return false
+        }
+
+        print (name)
+        print (type)
+        print (address)
+
+        return true
     }
 
     public func customizationNavigationBar() {
@@ -58,19 +87,17 @@ class NewRestaurantController: UITableViewController, UINavigationControllerDele
     }
 }
 
-extension NewRestaurantController: UITextFieldDelegate {
-
-func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if let nextTextFiled = view.viewWithTag(textField.tag + 1) {
-        textField.resignFirstResponder()
-        nextTextFiled.becomeFirstResponder()
-    }
-    return true
+extension NewRestaurantViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let nextTextFiled = view.viewWithTag(textField.tag + 1) {
+            textField.resignFirstResponder()
+            nextTextFiled.becomeFirstResponder()
+        }
+        return true
     }
 }
 
-extension NewRestaurantController {
-
+extension NewRestaurantViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             let photoSourceRequestController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .alert)
@@ -102,7 +129,6 @@ extension NewRestaurantController {
                 if let cell = tableView.cellForRow(at: indexPath) {
                     popoverController.sourceView = cell
                     popoverController.sourceRect = cell.bounds
-                    popoverController.permittedArrowDirections = .any
                 }
             }
             present(photoSourceRequestController, animated: true, completion: nil)
@@ -110,29 +136,28 @@ extension NewRestaurantController {
     }
 }
 
-extension NewRestaurantController: UIImagePickerControllerDelegate {
-
+extension NewRestaurantViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
-     if let selectedImage = info[ UIImagePickerController.InfoKey.originalImage ] as? UIImage {
+        if let selectedImage = info[ UIImagePickerController.InfoKey.originalImage ] as? UIImage {
             photoImageView.image = selectedImage
             photoImageView.contentMode = .scaleToFill
             photoImageView.clipsToBounds = true
         }
-        let leadingContraint = NSLayoutConstraint(item: photoImageView ?? "", attribute: .leading, relatedBy: .equal,
+        _ = NSLayoutConstraint(item: photoImageView ?? "", attribute: .leading, relatedBy: .equal,
                                                   toItem: photoImageView.superview, attribute: .leading, multiplier: 1, constant: 0)
-        leadingContraint.isActive = true
+            .isActive = true
 
-        let trailingConstraint = NSLayoutConstraint(item: photoImageView ?? "", attribute: .trailing, relatedBy: .equal,
-                                                  toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0)
-        trailingConstraint.isActive = true
+        _ = NSLayoutConstraint(item: photoImageView ?? "", attribute: .trailing, relatedBy: .equal,
+                                                    toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0)
+            .isActive = true
 
-        let topConstraint = NSLayoutConstraint(item: photoImageView ?? "", attribute: .top, relatedBy: .equal,
-                                                  toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0)
-        topConstraint.isActive = true
+        _ = NSLayoutConstraint(item: photoImageView ?? "", attribute: .top, relatedBy: .equal,
+                                               toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0)
+            .isActive = true
 
-        let bottomConstraint = NSLayoutConstraint(item: photoImageView ?? "", attribute: .bottom, relatedBy: .equal,
-                                               toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0)
-        bottomConstraint.isActive = true
+        _ = NSLayoutConstraint(item: photoImageView ?? "", attribute: .bottom, relatedBy: .equal,
+                                                  toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0)
+            .isActive = true
 
         dismiss(animated: true, completion: nil)
     }

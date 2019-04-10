@@ -19,7 +19,7 @@ protocol CustomCell: class {
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBAction func unwindToHome(segue: UIStoryboardSegue) {
+    @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
 
