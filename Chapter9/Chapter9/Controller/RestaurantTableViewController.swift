@@ -19,6 +19,9 @@ protocol CustomCell: class {
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
+    @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
+        dismiss(animated: true, completion: nil)
+    }
 
     private let deleteText = "delete"
     private let shareText = "share"
