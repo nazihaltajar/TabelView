@@ -20,17 +20,17 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             typeTextField.delegate = self
         }
     }
-    @IBOutlet weak var addressTextField: RoundedTextFiled! {
+    @IBOutlet weak private var addressTextField: RoundedTextFiled! {
         didSet {
             addressTextField.delegate = self
         }
     }
-    @IBOutlet weak var phoneTextField: RoundedTextFiled! {
+    @IBOutlet weak private var phoneTextField: RoundedTextFiled! {
         didSet {
             phoneTextField.delegate = self
         }
     }
-    @IBOutlet weak var descriptionTextView: UITextView! {
+    @IBOutlet weak private var descriptionTextView: UITextView! {
         didSet {
             descriptionTextView.layer.cornerRadius = 5.0
             descriptionTextView.layer.masksToBounds = true
@@ -41,12 +41,11 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
-            message: "We can't proceed because one of the fields is blank. Please note that all fields are required.",
-            preferredStyle: .alert)
+                                                 message: "We can't proceed because one of the fields is blank. Please note that all fields are required.",
+                                                 preferredStyle: .alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alertMessage, animated: true, completion: nil)
         }
-
     }
 
     override func viewDidLoad() {
@@ -57,26 +56,17 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
-        guard let name = nameTextField.text, !name.isEmpty  else {
-            return false
+        guard
+            let name = nameTextField.text, !name.isEmpty,
+            let type = typeTextField.text, !type.isEmpty,
+            let address = addressTextField.text, !address.isEmpty,
+            let phone = phoneTextField.text, !phone.isEmpty,
+            let description = descriptionTextView.text, !description.isEmpty
+        else {
+        return false
         }
-        guard let type = typeTextField.text, !type.isEmpty else {
-            return false
-        }
-        guard let address = addressTextField.text, !address.isEmpty else {
-            return false
-        }
-        guard let phone = phoneTextField.text, !phone.isEmpty else {
-            return false
-        }
-        guard let description = descriptionTextView.text, !description.isEmpty else {
-            return false
-        }
-        print (name)
-        print (type)
-        print (address)
-        print (phone)
-        print (description)
+
+        print (name, type, address, phone, description)
 
         return true
     }
@@ -148,17 +138,13 @@ extension NewRestaurantViewController: UIImagePickerControllerDelegate {
             photoImageView.clipsToBounds = true
         }
         NSLayoutConstraint(item: photoImageView ?? "", attribute: .leading, relatedBy: .equal,
-                                                  toItem: photoImageView.superview, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-
+                           toItem: photoImageView.superview, attribute: .leading, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: photoImageView ?? "", attribute: .trailing, relatedBy: .equal,
-                                                    toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-
+                           toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: photoImageView ?? "", attribute: .top, relatedBy: .equal,
-                                               toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0).isActive = true
-
+                           toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: photoImageView ?? "", attribute: .bottom, relatedBy: .equal,
-                                                  toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
-
+                           toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         dismiss(animated: true, completion: nil)
     }
 }
