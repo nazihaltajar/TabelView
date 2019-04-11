@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NewRestaurantViewController: UITableViewController, UINavigationControllerDelegate {
     @IBOutlet weak private var photoImageView: UIImageView!
@@ -38,6 +39,21 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     }
     @IBAction func saveButtonTapped() {
         if checkIfTextFieldsAreEmpty() {
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                restaurant = RestaurantMO(context: appDelegate.persistentContainer.viewContext)
+                restaurant.name = nameTextField.text
+                restaurant.type = typeTextField.text
+                restaurant.location = addressTextField.text
+                restaurant.phone = phoneTextField.text
+                restaurant.summary = descriptionTextView.text
+                restaurant.isVisited = false
+
+                if let restaurantImage = photoImageView.image {
+                    restaurant.image = restaurantImage.pngData()
+                }
+                print ("Saving data to context...")
+                appDelegate.saveContext()
+            }
             dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
@@ -47,12 +63,26 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             present(alertMessage, animated: true, completion: nil)
         }
     }
-
+    var restaurant: RestaurantMO!
+    var restaurants = [RestaurantMO]()
+    weak var appDelegate: AppDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+            let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
+        let context = appDelegate?.persistentContainer.viewContext
+            do {
+                restaurants = try context?.fetch(request) ?? [RestaurantMO]()
+            } catch {
+                print(error)
+            }
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
@@ -61,7 +91,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             let address = addressTextField.text, !address.isEmpty,
             let phone = phoneTextField.text, !phone.isEmpty,
             let description = descriptionTextView.text, !description.isEmpty
-        else { return false }
+            else { return false }
 
         print (name, type, address, phone, description)
 

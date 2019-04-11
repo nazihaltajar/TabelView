@@ -25,6 +25,9 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
+            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+                appDelegate.saveContext()
+            }
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
             }
@@ -32,7 +35,7 @@ class RestaurantDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    var restaurantDetails: Restaurant?
+    var restaurantDetails: RestaurantMO!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,13 +102,11 @@ extension RestaurantDetailViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         guard let type = CellTypes(rawValue: indexPath.row ) else { return UITableViewCell() }
         switch type {
         case .phone:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
                                                      for: indexPath) as! RestaurantDetailIconTextCell
-
             cell.iconImageView.image = UIImage(named: "phone")
             cell.shortTextLabel.text = restaurantDetails?.phone
             cell.selectionStyle = .none
@@ -114,7 +115,6 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .location:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailIconTextCell.self),
                                                      for: indexPath) as! RestaurantDetailIconTextCell
-
             cell.iconImageView.image = UIImage(named: "map")
             cell.shortTextLabel.text = restaurantDetails?.location
             cell.selectionStyle = .none
@@ -123,15 +123,13 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .description:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailTextCell.self),
                                                      for: indexPath) as! RestaurantDetailTextCell
-
-            cell.descriptionLabel.text = restaurantDetails?.description
+            cell.descriptionLabel.text = restaurantDetails?.summary
             cell.selectionStyle = .none
 
             return cell
         case .headerMap:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self),
                                                      for: indexPath) as! RestaurantDetailSeparatorCell
-
             cell.titleLabel.text = "HOW TO GET HERE"
             cell.selectionStyle = .none
 
@@ -139,9 +137,9 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self),
                                                      for: indexPath) as! RestaurantDetailMapCell
-
-            cell.configure(location: restaurantDetails?.location ?? "")
-
+            if restaurantDetails.location != nil {
+                cell.configure(location: restaurantDetails?.location ?? "")
+            }
             return cell
         }
     }

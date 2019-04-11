@@ -13,6 +13,7 @@ class RestaurantTableViewCell: UITableViewCell {
     @IBOutlet private weak var locationLabel: UILabel!
     @IBOutlet private weak var typeLabel: UILabel!
     @IBOutlet private weak var thumbnailImageView: UIImageView!
+    let imageName = "heart-tick"
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,10 +28,15 @@ extension RestaurantTableViewCell: CustomCell {
         return .restaurantCellIdentifier
     }
 
-    func configure(withModel restaurant: Restaurant) {
+    func configure(withModel restaurant: RestaurantMO) {
         nameLabel.text = restaurant.name
-        locationLabel.text = restaurant.location
+        if let restaurantLocation = restaurant.location {
+            locationLabel.text = restaurantLocation}
         typeLabel.text = restaurant.type
-        thumbnailImageView.image = UIImage(named: restaurant.image)
+        if let restaurantImage = restaurant.image {
+            thumbnailImageView.image = UIImage(data: restaurantImage as Data)
+        }
+        let imageView = UIImageView(image: UIImage(named: imageName))
+        restaurant.isVisited ? (accessoryView = imageView) : (accessoryView = .none)
     }
 }
