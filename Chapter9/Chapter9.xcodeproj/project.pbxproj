@@ -27,16 +27,18 @@
 		EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */; };
 		EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */; };
 		EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9054682255FA36009428B3 /* ReviewViewController.swift */; };
+		EE91DEE12265C730004E5272 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE91DEE02265C730004E5272 /* Database.swift */; };
 		EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */; };
 		EE937B36225B69CF00BD5F2D /* RoundedTextFiled.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */; };
 		EE937B38225B713100BD5F2D /* NewRestaurantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */; };
+		EE93B1CB225F545900B2D92A /* Chapter9.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE93B1C9225F545800B2D92A /* Chapter9.xcdatamodeld */; };
+		EE93B1CD225F58DB00B2D92A /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B1CC225F58DB00B2D92A /* Restaurant.swift */; };
 		EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B904223B7F860079DE6F /* AppDelegate.swift */; };
 		EE93B90A223B7F860079DE6F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B908223B7F860079DE6F /* Main.storyboard */; };
 		EE93B90C223B7F870079DE6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90B223B7F870079DE6F /* Assets.xcassets */; };
 		EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */; };
 		EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */; };
 		EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */; };
-		EEB3E2082248F04700E01596 /* Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E2072248F04700E01596 /* Restaurant.swift */; };
 		EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E20E2249042300E01596 /* RestaurantGroup.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,9 +63,12 @@
 		EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor-Extension.swift"; sourceTree = "<group>"; };
 		EE8EFA72224510D500E478A9 /* RestaurantDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantDetailViewController.swift; sourceTree = "<group>"; };
 		EE9054682255FA36009428B3 /* ReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewController.swift; sourceTree = "<group>"; };
+		EE91DEE02265C730004E5272 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController-Extension.swift"; sourceTree = "<group>"; };
 		EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedTextFiled.swift; sourceTree = "<group>"; };
 		EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRestaurantViewController.swift; sourceTree = "<group>"; };
+		EE93B1CA225F545900B2D92A /* RestaurantMO.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RestaurantMO.xcdatamodel; sourceTree = "<group>"; };
+		EE93B1CC225F58DB00B2D92A /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		EE93B901223B7F860079DE6F /* Chapter9.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chapter9.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE93B904223B7F860079DE6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE93B909223B7F860079DE6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,7 +77,6 @@
 		EE93B910223B7F870079DE6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
-		EEB3E2072248F04700E01596 /* Restaurant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Restaurant.swift; sourceTree = "<group>"; };
 		EEB3E20E2249042300E01596 /* RestaurantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +125,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EE91DEE22265C751004E5272 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				EE93B1C9225F545800B2D92A /* Chapter9.xcdatamodeld */,
+				EE91DEE02265C730004E5272 /* Database.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
 		EE93B8F8223B7F860079DE6F = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +156,7 @@
 			children = (
 				EE7F6D45224B97A30043A3A0 /* Resources */,
 				EEB3E20D224903F900E01596 /* Extensions */,
+				EE91DEE22265C751004E5272 /* Database */,
 				EEB3E20B2248FF2500E01596 /* Storyboard */,
 				EEB3E20A2248FF1000E01596 /* Model */,
 				EEB3E20C2248FF4800E01596 /* View */,
@@ -169,8 +183,8 @@
 		EEB3E20A2248FF1000E01596 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EEB3E2072248F04700E01596 /* Restaurant.swift */,
 				EEB3E20E2249042300E01596 /* RestaurantGroup.swift */,
+				EE93B1CC225F58DB00B2D92A /* Restaurant.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -323,7 +337,8 @@
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
 				EE826EB6224D00B400BA1588 /* RestaurantDetailIconTextCellTableViewCell.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,
-				EEB3E2082248F04700E01596 /* Restaurant.swift in Sources */,
+				EE93B1CD225F58DB00B2D92A /* Restaurant.swift in Sources */,
+				EE93B1CB225F545900B2D92A /* Chapter9.xcdatamodeld in Sources */,
 				EE8D92CA2253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift in Sources */,
 				EE8D92CC2253B7B5005C9C86 /* RestaurantDetailMapCell.swift in Sources */,
 				EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */,
@@ -331,6 +346,7 @@
 				EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */,
 				EE7F6D70224BA9BE0043A3A0 /* RestaurantDetailHeaderView.swift in Sources */,
 				EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */,
+				EE91DEE12265C730004E5272 /* Database.swift in Sources */,
 				EE8D92CE2254A16E005C9C86 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -529,6 +545,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EE93B1C9225F545800B2D92A /* Chapter9.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EE93B1CA225F545900B2D92A /* RestaurantMO.xcdatamodel */,
+			);
+			currentVersion = EE93B1CA225F545900B2D92A /* RestaurantMO.xcdatamodel */;
+			path = Chapter9.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = EE93B8F9223B7F860079DE6F /* Project object */;
 }

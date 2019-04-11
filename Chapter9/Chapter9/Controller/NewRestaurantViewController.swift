@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 class NewRestaurantViewController: UITableViewController, UINavigationControllerDelegate {
+    var restaurant: RestaurantMO!
+    var restaurants = [RestaurantMO]()
     @IBOutlet weak private var photoImageView: UIImageView!
     @IBOutlet weak private var nameTextField: RoundedTextFiled! {
         didSet {
@@ -38,6 +41,17 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     }
     @IBAction func saveButtonTapped() {
         if checkIfTextFieldsAreEmpty() {
+           let restaurant = Restaurant(name: nameTextField.text ?? "",
+                                    type: typeTextField.text ?? "",
+                                    location: addressTextField.text ?? "",
+                                    image: photoImageView.image?.pngData() ?? Data(),
+                                    phone: phoneTextField.text ?? "",
+                                    description: descriptionTextView.text,
+                                    isVisited: false,
+                                    rating: "")
+
+            database.saveRestaurant(restaurant: restaurant)
+
             dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
@@ -48,11 +62,26 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
         }
     }
 
+    weak var appDelegate: AppDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+
+            let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
+            let context = appDelegate?.persistentContainer.viewContext
+        
+            do {
+                restaurants = try context?.fetch(request) ?? [RestaurantMO]()
+            } catch {
+                print(error)
+            }
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
@@ -61,7 +90,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             let address = addressTextField.text, !address.isEmpty,
             let phone = phoneTextField.text, !phone.isEmpty,
             let description = descriptionTextView.text, !description.isEmpty
-        else { return false }
+            else { return false }
 
         print (name, type, address, phone, description)
 
@@ -134,13 +163,15 @@ extension NewRestaurantViewController: UIImagePickerControllerDelegate {
             photoImageView.contentMode = .scaleToFill
             photoImageView.clipsToBounds = true
         }
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .leading, relatedBy: .equal,
+        guard let photoImageView = photoImageView else { return }
+
+        NSLayoutConstraint(item: photoImageView, attribute: .leading, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .trailing, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .trailing, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .top, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .top, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .bottom, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .bottom, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         dismiss(animated: true, completion: nil)
     }
