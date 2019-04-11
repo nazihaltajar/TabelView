@@ -27,12 +27,12 @@ class RestaurantDetailHeaderView: UIView {
         shadowTopConstraint.constant = offset
     }
 
-    public func setupHeaderView(restaurantDetails: Restaurant) {
-        headerImageView.image = UIImage(named: restaurantDetails.name)
+    public func setupHeaderView(restaurantDetails: RestaurantMO) {
+        headerImageView.image = UIImage(named: restaurantDetails.name ?? "")
         heartImageView.isHidden = (restaurantDetails.isVisited) ? false : true
         nameLabel.text = restaurantDetails.name
         typeLabel.text = restaurantDetails.type
-        ratingImageView.image = UIImage(named: restaurantDetails.rating)
+        ratingImageView.image = UIImage(named: restaurantDetails.rating ?? "")
         animateImageView(ratingImageView)
     }
 

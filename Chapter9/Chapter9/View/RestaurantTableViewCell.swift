@@ -27,10 +27,10 @@ extension RestaurantTableViewCell: CustomCell {
         return .restaurantCellIdentifier
     }
 
-    func configure(withModel restaurant: Restaurant) {
+    func configure(withModel restaurant: RestaurantMO) {
         nameLabel.text = restaurant.name
         locationLabel.text = restaurant.location
         typeLabel.text = restaurant.type
-        thumbnailImageView.image = UIImage(named: restaurant.image)
+        thumbnailImageView.image = UIImage(named: restaurant.image ?? "")
     }
 }

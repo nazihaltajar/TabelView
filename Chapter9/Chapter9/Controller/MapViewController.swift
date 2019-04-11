@@ -12,7 +12,7 @@ import MapKit
 class MapViewController: UIViewController {
     @IBOutlet weak private var mapView: MKMapView!
 
-    var restaurant = Restaurant()
+    var restaurant: RestaurantMO!
     let markName = "MyMarker"
 
     override func viewDidLoad() {
@@ -38,7 +38,7 @@ class MapViewController: UIViewController {
     private func setUpMap() {
         let geoCoder = CLGeocoder()
 
-        geoCoder.geocodeAddressString(restaurant.location, completionHandler: { placemarks, error in
+        geoCoder.geocodeAddressString(restaurant.location ?? "", completionHandler: { placemarks, error in
             if let error = error {
                 print(error)
 

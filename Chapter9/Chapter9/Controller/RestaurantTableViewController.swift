@@ -14,7 +14,7 @@ enum CellIdentifier: String {
 
 protocol CustomCell: class {
     var cellType: CellIdentifier { get }
-    func configure(withModel: Restaurant)
+    func configure(withModel: RestaurantMO)
 }
 
 class RestaurantTableViewController: UIViewController {
@@ -22,6 +22,7 @@ class RestaurantTableViewController: UIViewController {
     @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
+    @IBOutlet var emptyRestaurantView: UIView!
 
     private let deleteText = "delete"
     private let shareText = "share"
@@ -29,14 +30,16 @@ class RestaurantTableViewController: UIViewController {
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
     private var restaurants = [Restaurant]()
+    private var restaurantMO = [RestaurantMO]()
     var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let restaurantGroup = RestaurantGroup()
-        restaurants = restaurantGroup.restaurants
+        let restaurantGroup = restaurantMO
         customizationNavigationBar()
+        tableView.backgroundView = emptyRestaurantView
+        tableView.backgroundView?.isHidden = true
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,7 +47,7 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.restaurantDetails = restaurants[indexPath.row]
+                destinationController.restaurantDetails = restaurantMO[indexPath.row]
             }
         }
     }
@@ -68,7 +71,7 @@ extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
             let cell = tableView.cellForRow(at: indexPath)
-            self.restaurants[indexPath.row].isVisited = true
+            self.restaurantMO[indexPath.row].isVisited = true
             let imageView = UIImageView(image: UIImage(named: self.heartImageName))
             cell?.accessoryView = imageView
 
@@ -77,7 +80,7 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
         let undoCheckIn = UIContextualAction(style: .normal, title: "undoCheckIn") {( _, _, completionHandler) in
             let cell = tableView.cellForRow(at: indexPath)
-            self.restaurants[indexPath.row].isVisited = false
+            self.restaurantMO[indexPath.row].isVisited = false
             cell?.accessoryView = .none
 
             completionHandler(true)
@@ -88,21 +91,21 @@ extension RestaurantTableViewController: UITableViewDelegate {
         undoCheckIn.image = UIImage(named: undoImageName)
         undoCheckIn.backgroundColor = .undoCheckInColor
 
-        return restaurants[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
+        return restaurantMO[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
-            self.restaurants.remove(at: indexPath.row)
+            self.restaurantMO.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .fade)
 
             completionHandler(true)
         }
 
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
-            let defaultText = "Just checking in at " + self.restaurants[indexPath.row].name
+            let defaultText = "Just checking in at " + self.restaurantMO[indexPath.row].name!
 
-            if let imageToShare = UIImage(named: self.restaurants[indexPath.row].image) {
+            if let imageToShare = UIImage(named: self.restaurantMO[indexPath.row].image ?? "" ) {
                 self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
                 self.activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
@@ -133,13 +136,25 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
 extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurants.count
+        return restaurantMO.count
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        if restaurantMO.count > 0 {
+            tableView.backgroundView?.isHidden = true
+            tableView.separatorStyle = .singleLine
+        } else {
+            tableView.backgroundView?.isHidden = false
+            tableView.separatorStyle = .none
+        }
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let restaurant = restaurants[indexPath.row]
+        let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
+        let restaurant = restaurantMO[indexPath.row]
         let customCell = tableView.dequeueReusableCell(
-            withIdentifier: restaurant.cellType.rawValue, for: indexPath) as? CustomCell
+            withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
 
         customCell?.configure(withModel: restaurant)
 

@@ -32,7 +32,7 @@ class RestaurantDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
-    var restaurantDetails: Restaurant?
+    var restaurantDetails: RestaurantMO!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,9 +139,9 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self),
                                                      for: indexPath) as! RestaurantDetailMapCell
-
+            if restaurantDetails.location != nil {
             cell.configure(location: restaurantDetails?.location ?? "")
-
+            }
             return cell
         }
     }
