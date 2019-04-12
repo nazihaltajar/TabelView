@@ -28,12 +28,15 @@ class RestaurantDetailHeaderView: UIView {
     }
 
     public func setupHeaderView(restaurantDetails: RestaurantMO) {
-        headerImageView.image = UIImage(named: restaurantDetails.name ?? "")
+        if let restaurantImage = restaurantDetails.image {
+            headerImageView.image = UIImage(data: restaurantImage as Data)
+        }
         heartImageView.isHidden = (restaurantDetails.isVisited) ? false : true
         nameLabel.text = restaurantDetails.name
         typeLabel.text = restaurantDetails.type
-        ratingImageView.image = UIImage(named: restaurantDetails.rating ?? "")
-        animateImageView(ratingImageView)
+        if let rating = restaurantDetails.rating {
+        ratingImageView.image = UIImage(named: rating)
+        animateImageView(ratingImageView)}
     }
 
     private func animateImageView(_ imageView: UIImageView) {

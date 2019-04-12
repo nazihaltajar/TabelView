@@ -46,9 +46,11 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
                 restaurant.location = addressTextField.text
                 restaurant.phone = phoneTextField.text
                 restaurant.summary = descriptionTextView.text
-                restaurant.image  = phoneTextField.text
                 restaurant.isVisited = false
 
+                if let restaurantImage = photoImageView.image {
+                    restaurant.image = restaurantImage.pngData()
+                }
                 print ("Saving data to context...")
                 appDelegate.saveContext()
             }
@@ -62,12 +64,24 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
         }
     }
     var restaurant: RestaurantMO!
+    var restaurants = [RestaurantMO]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
+            let context = appDelegate.persistentContainer.viewContext
+            do { restaurants = try context.fetch(request)
+            } catch {
+                print(error)
+            }
+        }
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
@@ -76,7 +90,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             let address = addressTextField.text, !address.isEmpty,
             let phone = phoneTextField.text, !phone.isEmpty,
             let description = descriptionTextView.text, !description.isEmpty
-        else { return false }
+            else { return false }
 
         print (name, type, address, phone, description)
 

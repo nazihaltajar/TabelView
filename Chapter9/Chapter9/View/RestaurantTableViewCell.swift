@@ -29,8 +29,12 @@ extension RestaurantTableViewCell: CustomCell {
 
     func configure(withModel restaurant: RestaurantMO) {
         nameLabel.text = restaurant.name
-        locationLabel.text = restaurant.location
+        if let restaurantLocation = restaurant.location {
+            locationLabel.text = restaurantLocation}
         typeLabel.text = restaurant.type
-        thumbnailImageView.image = UIImage(named: restaurant.image ?? "")
+        if let restaurantImage = restaurant.image {
+            thumbnailImageView.image = UIImage(data: restaurantImage as Data)
+        }
+
     }
 }
