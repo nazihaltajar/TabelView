@@ -89,18 +89,16 @@ class RestaurantTableViewController: UIViewController {
 extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
-            let cell = tableView.cellForRow(at: indexPath)
             self.restaurantMO[indexPath.row].isVisited = true
-            let imageView = UIImageView(image: UIImage(named: self.heartImageName))
-            cell?.accessoryView = imageView
+            try? self.restaurantMO[indexPath.row].managedObjectContext?.save()
 
             completionHandler(true)
+
         }
 
         let undoCheckIn = UIContextualAction(style: .normal, title: "undoCheckIn") {( _, _, completionHandler) in
-            let cell = tableView.cellForRow(at: indexPath)
             self.restaurantMO[indexPath.row].isVisited = false
-            cell?.accessoryView = .none
+            try? self.restaurantMO[indexPath.row].managedObjectContext?.save()
 
             completionHandler(true)
         }
@@ -115,8 +113,6 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
-            //            self.restaurantMO.remove(at: indexPath.row)
-            //            self.tableView.deleteRows(at: [indexPath], with: .fade)
             if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
                 let context = appDelegate.persistentContainer.viewContext
                 let restaurantToDelete = self.fetchResultController.object(at: indexPath)
