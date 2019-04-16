@@ -24,14 +24,14 @@ class RestaurantTableViewController: UIViewController {
     @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
-    @IBOutlet var emptyRestaurantView: UIView!
 
     private let deleteText = "delete"
     private let shareText = "share"
     private let tickImageName = "tick"
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
-    private var restaurantMO = [RestaurantMO]()
+    private var restaurantsMO = [RestaurantMO]()
+
     var activityController: UIActivityViewController?
     var fetchResultController: NSFetchedResultsController<RestaurantMO>!
     var searchController: UISearchController!
@@ -53,7 +53,7 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.restaurantDetails = (searchController.isActive) ? searchResults[indexPath.row] : restaurantMO[indexPath.row]
+                destinationController.restaurantDetails = (searchController.isActive) ? searchResults[indexPath.row] : restaurantsMO[indexPath.row]
             }
         }
     }
@@ -73,25 +73,23 @@ class RestaurantTableViewController: UIViewController {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let context = appDelegate.persistentContainer.viewContext
+            let context = database.context
             fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
             fetchResultController.delegate = self
 
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
-                    restaurantMO = fetchedObjects
+                    restaurantsMO = fetchedObjects
                 }
             } catch {
                 print(error)
             }
-        }
     }
-    //exercise1
+
     func filterContent(for searchText: String) {
-        searchResults = restaurantMO.filter({ (RestaurantMO) -> Bool in
-            if let name = RestaurantMO.name, let location = RestaurantMO.location {
+        searchResults = restaurantsMO.filter({ (restaurantMO) -> Bool in
+            if let name = restaurantMO.name, let location = restaurantMO.location {
                 let isNameMatch = name.localizedCaseInsensitiveContains(searchText)
                 let isLocationMatch = location.localizedCaseInsensitiveContains(searchText)
                 return isNameMatch || isLocationMatch
@@ -118,16 +116,20 @@ class RestaurantTableViewController: UIViewController {
 extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
-            self.restaurantMO[indexPath.row].isVisited = true
-            try? self.restaurantMO[indexPath.row].managedObjectContext?.save()
+            let restaurantCheck = self.restaurantsMO[indexPath.row]
+            let restaurant = Restaurant(restaurant: restaurantCheck)
+            restaurant.isVisited = true
+            database.updateRestaurant(restaurant: restaurant)
 
             completionHandler(true)
 
         }
 
         let undoCheckIn = UIContextualAction(style: .normal, title: "undoCheckIn") {( _, _, completionHandler) in
-            self.restaurantMO[indexPath.row].isVisited = false
-            try? self.restaurantMO[indexPath.row].managedObjectContext?.save()
+            let restaurantUndo = self.restaurantsMO[indexPath.row]
+            let restaurant = Restaurant(restaurant: restaurantUndo)
+            restaurant.isVisited = false
+            database.updateRestaurant(restaurant: restaurant)
 
             completionHandler(true)
         }
@@ -137,26 +139,24 @@ extension RestaurantTableViewController: UITableViewDelegate {
         undoCheckIn.image = UIImage(named: undoImageName)
         undoCheckIn.backgroundColor = .undoCheckInColor
 
-        return restaurantMO[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
+        return restaurantsMO[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
-            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-                let context = appDelegate.persistentContainer.viewContext
+
                 let restaurantToDelete = self.fetchResultController.object(at: indexPath)
-                context.delete(restaurantToDelete)
-                appDelegate.saveContext()
-            }
+                let myRestaurant = Restaurant(restaurant: restaurantToDelete)
+                database.deleteRestaurant(restaurant: myRestaurant)
 
             completionHandler(true)
         }
 
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
 
-            let defaultText = "Just checking in at " + (self.restaurantMO[indexPath.row].name ?? "")
+            let defaultText = "Just checking in at " + (self.restaurantsMO[indexPath.row].name ?? "")
 
-            if let restaurantImage = self.restaurantMO[indexPath.row].image,
+            if let restaurantImage = self.restaurantsMO[indexPath.row].image,
                 let imageToShare = UIImage(data: restaurantImage as Data ) {
                 self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
@@ -191,12 +191,12 @@ extension RestaurantTableViewController: UITableViewDataSource {
         if searchController.isActive {
             return searchResults.count
         } else {
-            return restaurantMO.count
+            return restaurantsMO.count
         }
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        if restaurantMO.count > 0 {
+        if restaurantsMO.count > 0 {
             tableView.backgroundView?.isHidden = true
             tableView.separatorStyle = .singleLine
         } else {
@@ -209,7 +209,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
 
-        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurantMO[indexPath.row]
+        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurantsMO[indexPath.row]
         let customCell = tableView.dequeueReusableCell(
             withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
 
@@ -244,7 +244,7 @@ extension RestaurantTableViewController: NSFetchedResultsControllerDelegate {
         }
 
         if let fetchedObjects = controller.fetchedObjects {
-            restaurantMO = fetchedObjects as! [RestaurantMO]
+            restaurantsMO = fetchedObjects as! [RestaurantMO]
         }
     }
 
@@ -260,7 +260,7 @@ extension RestaurantTableViewController: UISearchResultsUpdating {
             tableView.reloadData()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if searchController.isActive {
             return false

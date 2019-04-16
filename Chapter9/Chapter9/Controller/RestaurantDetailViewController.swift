@@ -25,16 +25,17 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
-            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-                appDelegate.saveContext()
-            }
+//            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+//                appDelegate.saveContext()
+//            }
+            database.saveContext()
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
             }
         }
         dismiss(animated: true, completion: nil)
     }
-
+    var database = Database()
     var restaurantDetails: RestaurantMO!
 
     override func viewDidLoad() {
