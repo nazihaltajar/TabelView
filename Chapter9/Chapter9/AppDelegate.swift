@@ -36,12 +36,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
     }
-    lazy var persistentContainer: NSPersistentContainer = {
 
+    lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Chapter9")
         container.loadPersistentStores(completionHandler: { (_, error) in
             if let error = error as NSError? {
-
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -56,7 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 try context.save()
             } catch {
-
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }

@@ -66,23 +66,25 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     var restaurant: RestaurantMO!
     var restaurants = [RestaurantMO]()
 
+    weak var appDelegate: AppDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        appDelegate = (UIApplication.shared.delegate as? AppDelegate)
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-            let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
-            let context = appDelegate.persistentContainer.viewContext
+
+        let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
+        let context = appDelegate?.persistentContainer.viewContext
             do {
-                restaurants = try context.fetch(request)
+                restaurants = try context?.fetch(request) ?? [RestaurantMO]()
             } catch {
                 print(error)
             }
-        }
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {

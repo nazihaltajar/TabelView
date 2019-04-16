@@ -20,6 +20,7 @@ protocol CustomCell: class {
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet weak private var emptyRestaurantView: UIView!
     @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
@@ -152,7 +153,8 @@ extension RestaurantTableViewController: UITableViewDelegate {
         }
 
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
-            let defaultText = "Just checking in at " + self.restaurantMO[indexPath.row].name!
+
+            let defaultText = "Just checking in at " + (self.restaurantMO[indexPath.row].name ?? "")
 
             if let restaurantImage = self.restaurantMO[indexPath.row].image,
                 let imageToShare = UIImage(data: restaurantImage as Data ) {
@@ -192,6 +194,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
             return restaurantMO.count
         }
     }
+
     func numberOfSections(in tableView: UITableView) -> Int {
         if restaurantMO.count > 0 {
             tableView.backgroundView?.isHidden = true
@@ -205,6 +208,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
+
         let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurantMO[indexPath.row]
         let customCell = tableView.dequeueReusableCell(
             withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
@@ -248,6 +252,7 @@ extension RestaurantTableViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
     }
 }
+
 extension RestaurantTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
@@ -255,6 +260,7 @@ extension RestaurantTableViewController: UISearchResultsUpdating {
             tableView.reloadData()
         }
     }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if searchController.isActive {
             return false
