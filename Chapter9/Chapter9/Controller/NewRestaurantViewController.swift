@@ -77,7 +77,8 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
         if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
             let request: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
             let context = appDelegate.persistentContainer.viewContext
-            do { restaurants = try context.fetch(request)
+            do {
+                restaurants = try context.fetch(request)
             } catch {
                 print(error)
             }

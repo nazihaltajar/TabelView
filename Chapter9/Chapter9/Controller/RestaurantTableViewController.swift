@@ -33,10 +33,41 @@ class RestaurantTableViewController: UIViewController {
     private var restaurantMO = [RestaurantMO]()
     var activityController: UIActivityViewController?
     var fetchResultController: NSFetchedResultsController<RestaurantMO>!
+    var searchController: UISearchController!
+    var searchResults: [RestaurantMO] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        definesPresentationContext = true
+        fetchResults()
+        searchForResults()
+        customizationNavigationBar()
+        tableView.backgroundView = emptyRestaurantView
+        tableView.backgroundView?.isHidden = true
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showRestaurantDetail" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
+
+                destinationController.restaurantDetails = (searchController.isActive) ? searchResults[indexPath.row] : restaurantMO[indexPath.row]
+            }
+        }
+    }
+
+    public func searchForResults() {
+        searchController = UISearchController(searchResultsController: nil)
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search restaurants..."
+        searchController.searchBar.barTintColor = .black
+        searchController.searchBar.tintColor = UIColor.customColor
+    }
+
+    public func fetchResults() {
         let fetchRequest: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -55,20 +86,17 @@ class RestaurantTableViewController: UIViewController {
                 print(error)
             }
         }
-
-        customizationNavigationBar()
-        tableView.backgroundView = emptyRestaurantView
-        tableView.backgroundView?.isHidden = true
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showRestaurantDetail" {
-            if let indexPath = tableView.indexPathForSelectedRow {
-                guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
-
-                destinationController.restaurantDetails = restaurantMO[indexPath.row]
+    //exercise1
+    func filterContent(for searchText: String) {
+        searchResults = restaurantMO.filter({ (RestaurantMO) -> Bool in
+            if let name = RestaurantMO.name, let location = RestaurantMO.location {
+                let isNameMatch = name.localizedCaseInsensitiveContains(searchText)
+                let isLocationMatch = location.localizedCaseInsensitiveContains(searchText)
+                return isNameMatch || isLocationMatch
             }
-        }
+            return false
+        })
     }
 
     public func customizationNavigationBar() {
@@ -158,9 +186,12 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
 extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurantMO.count
+        if searchController.isActive {
+            return searchResults.count
+        } else {
+            return restaurantMO.count
+        }
     }
-
     func numberOfSections(in tableView: UITableView) -> Int {
         if restaurantMO.count > 0 {
             tableView.backgroundView?.isHidden = true
@@ -174,7 +205,7 @@ extension RestaurantTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
-        let restaurant = restaurantMO[indexPath.row]
+        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurantMO[indexPath.row]
         let customCell = tableView.dequeueReusableCell(
             withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
 
@@ -215,5 +246,20 @@ extension RestaurantTableViewController: NSFetchedResultsControllerDelegate {
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+    }
+}
+extension RestaurantTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            filterContent(for: searchText)
+            tableView.reloadData()
+        }
+    }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if searchController.isActive {
+            return false
+        } else {
+            return true
+        }
     }
 }
