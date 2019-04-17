@@ -15,7 +15,7 @@ enum CellIdentifier: String {
 
 protocol CustomCell: class {
     var cellType: CellIdentifier { get }
-    func configure(withModel: RestaurantMO)
+    func configure(withModel: Restaurant)
 }
 
 class RestaurantTableViewController: UIViewController {
@@ -35,11 +35,12 @@ class RestaurantTableViewController: UIViewController {
     var activityController: UIActivityViewController?
     var fetchResultController: NSFetchedResultsController<RestaurantMO>!
     var searchController: UISearchController!
-    var searchResults: [RestaurantMO] = []
+    var searchResults: [Restaurant] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        RestaurantGroup.populateDb()
         definesPresentationContext = true
         fetchResults()
         searchForResults()
@@ -53,7 +54,8 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.restaurantDetails = (searchController.isActive) ? searchResults[indexPath.row] : restaurantsMO[indexPath.row]
+                destinationController.restaurantDetails =
+                    (searchController.isActive) ? searchResults[indexPath.row] : Restaurant (restaurant: restaurantsMO[indexPath.row])
             }
         }
     }
@@ -85,17 +87,6 @@ class RestaurantTableViewController: UIViewController {
             } catch {
                 print(error)
             }
-    }
-
-    func filterContent(for searchText: String) {
-        searchResults = restaurantsMO.filter({ (restaurantMO) -> Bool in
-            if let name = restaurantMO.name, let location = restaurantMO.location {
-                let isNameMatch = name.localizedCaseInsensitiveContains(searchText)
-                let isLocationMatch = location.localizedCaseInsensitiveContains(searchText)
-                return isNameMatch || isLocationMatch
-            }
-            return false
-        })
     }
 
     public func customizationNavigationBar() {
@@ -208,10 +199,8 @@ extension RestaurantTableViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
-
-        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : restaurantsMO[indexPath.row]
-        let customCell = tableView.dequeueReusableCell(
-            withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
+        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : Restaurant(restaurant: restaurantsMO[indexPath.row])
+        let customCell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
 
         customCell?.configure(withModel: restaurant)
 
@@ -256,8 +245,12 @@ extension RestaurantTableViewController: NSFetchedResultsControllerDelegate {
 extension RestaurantTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
-            filterContent(for: searchText)
-            tableView.reloadData()
+            DispatchQueue.global(qos: .background).async {
+                self.searchResults = database.searchRestaurant(restaurantname: searchText)
+            }
+            DispatchQueue.main.async {
+                 self.tableView.reloadData()
+            }
         }
     }
 

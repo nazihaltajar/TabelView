@@ -25,9 +25,6 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
-//            if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
-//                appDelegate.saveContext()
-//            }
             database.saveContext()
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
@@ -36,7 +33,7 @@ class RestaurantDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     var database = Database()
-    var restaurantDetails: RestaurantMO!
+    var restaurantDetails: Restaurant!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +121,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .description:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailTextCell.self),
                                                      for: indexPath) as! RestaurantDetailTextCell
-            cell.descriptionLabel.text = restaurantDetails?.summary
+            cell.descriptionLabel.text = restaurantDetails?.description
             cell.selectionStyle = .none
 
             return cell
@@ -138,9 +135,8 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self),
                                                      for: indexPath) as! RestaurantDetailMapCell
-            if restaurantDetails.location != nil {
                 cell.configure(location: restaurantDetails?.location ?? "")
-            }
+
             return cell
         }
     }

@@ -11,8 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     @IBOutlet weak private var mapView: MKMapView!
-
-    var restaurant: RestaurantMO?
+    var restaurant: Restaurant?
     let markName = "MyMarker"
 
     override func viewDidLoad() {

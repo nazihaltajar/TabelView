@@ -17,6 +17,7 @@ class Database {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
 
@@ -25,10 +26,8 @@ class Database {
     }
 
     func saveRestaurant(restaurant: Restaurant) {
-
-        let context = persistentContainer.viewContext
+        let context = persistentContainer.newBackgroundContext()
         context.perform {
-
             let restaurantMO = RestaurantMO(context: context)
             restaurantMO.name = restaurant.name
             restaurantMO.location = restaurant.location
@@ -39,12 +38,12 @@ class Database {
             restaurantMO.image = restaurant.image
             restaurantMO.type = restaurant.type
 
-            self.saveContext()
+            try? context.save()
         }
     }
 
     func updateRestaurant(restaurant: Restaurant) {
-        let context = persistentContainer.viewContext
+        let context = persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RestaurantMO")
         request.predicate = NSPredicate(format: "name == %@", restaurant.name)
         request.fetchLimit = 1
@@ -60,7 +59,6 @@ class Database {
                     restaurantMO.summary = restaurant.description
                     restaurantMO.isVisited = restaurant.isVisited
                     restaurantMO.image = restaurant.image
-
                     try? context.save()
                 }
             } catch {
@@ -71,7 +69,7 @@ class Database {
     }
 
     func deleteRestaurant(restaurant: Restaurant) {
-        let context = persistentContainer.viewContext
+        let context = persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RestaurantMO")
         request.predicate = NSPredicate(format: "name == %@", restaurant.name)
         request.fetchLimit = 1
@@ -80,36 +78,38 @@ class Database {
             do {
                 let restaurantResult = try context.fetch(request)
                 if let restaurantMO = restaurantResult.first as? RestaurantMO {
-                context.delete(restaurantMO)
-                try context.save()
+                    context.delete(restaurantMO)
+                    try context.save()
                 }
             } catch {
                 print ("Error in deleteRestaurant method")
             }
         }
     }
+
     func searchRestaurant (restaurantname: String) -> [Restaurant] {
         var restaurantList = [Restaurant]()
-        let context = persistentContainer.viewContext
+        let context = persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RestaurantMO")
         let predicateName = NSPredicate(format: "name CONTAINS[c] %@ ", restaurantname)
         let predicateLocation = NSPredicate(format: "location CONTAINS[c] %@ ", restaurantname)
         let predicate = NSCompoundPredicate (orPredicateWithSubpredicates: [predicateName, predicateLocation])
 
         request.predicate = predicate
-        do {
-            let result = try context.fetch(request) as! [RestaurantMO]
+        context.performAndWait {
+            do {
+                let result = try context.fetch(request) as! [RestaurantMO]
 
-            for restaurantF in result {
-                let restaurant = Restaurant(restaurant: restaurantF)
-                restaurantList.append(restaurant)
+                for restaurantF in result {
+                    let restaurant = Restaurant(restaurant: restaurantF)
+                    restaurantList.append(restaurant)
+                }
+            } catch {
+                print ("Error in search method")
             }
-
-        } catch {
-            print ("Error in search method")
         }
-        return [Restaurant]()
-        }
+        return restaurantList
+    }
 
     func saveContext () {
         let context = persistentContainer.viewContext

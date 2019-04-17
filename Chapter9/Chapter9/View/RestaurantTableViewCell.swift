@@ -28,14 +28,13 @@ extension RestaurantTableViewCell: CustomCell {
         return .restaurantCellIdentifier
     }
 
-    func configure(withModel restaurant: RestaurantMO) {
+    func configure(withModel restaurant: Restaurant) {
         nameLabel.text = restaurant.name
-        if let restaurantLocation = restaurant.location {
-            locationLabel.text = restaurantLocation}
+        locationLabel.text = restaurant.location
         typeLabel.text = restaurant.type
-        if let restaurantImage = restaurant.image {
-            thumbnailImageView.image = UIImage(data: restaurantImage as Data)
-        }
+
+        thumbnailImageView.image = UIImage(data: restaurant.image)
+
         let imageView = UIImageView(image: UIImage(named: imageName))
         restaurant.isVisited ? (accessoryView = imageView) : (accessoryView = .none)
     }

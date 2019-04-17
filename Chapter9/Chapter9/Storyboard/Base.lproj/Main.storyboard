@@ -81,7 +81,7 @@
                                 <connections>
                                     <outlet property="locationLabel" destination="uXz-Se-Ibg" id="FJe-7q-m2U"/>
                                     <outlet property="nameLabel" destination="3PU-VF-obC" id="jD1-uD-xOq"/>
-                                    <outlet property="thumbnailImageView" destination="uAy-cP-XsX" id="7dw-Vh-HEl"/>
+                                    <outlet property="thumbnailImageView" destination="uAy-cP-XsX" id="FSY-Xd-TGx"/>
                                     <outlet property="typeLabel" destination="gaP-7d-8zx" id="bpb-zY-BMG"/>
                                     <segue destination="iSu-XZ-7c3" kind="show" identifier="showRestaurantDetail" id="cTP-Xo-Db9"/>
                                 </connections>

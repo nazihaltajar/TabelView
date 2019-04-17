@@ -49,6 +49,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
                                     rating: "")
 
             database.saveRestaurant(restaurant: restaurantInit)
+            dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
                                                  message: "We can't proceed because one of the fields is blank. Please note that all fields are required.",
@@ -65,11 +66,6 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
 
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-
-        //databaseObj.searchRestaurant(restaurant: "")
     }
 
     func checkIfTextFieldsAreEmpty () -> Bool {
@@ -151,13 +147,15 @@ extension NewRestaurantViewController: UIImagePickerControllerDelegate {
             photoImageView.contentMode = .scaleToFill
             photoImageView.clipsToBounds = true
         }
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .leading, relatedBy: .equal,
+        guard let photoImageView = photoImageView else { return }
+
+        NSLayoutConstraint(item: photoImageView, attribute: .leading, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .leading, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .trailing, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .trailing, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .trailing, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .top, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .top, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .top, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: photoImageView ?? "", attribute: .bottom, relatedBy: .equal,
+        NSLayoutConstraint(item: photoImageView, attribute: .bottom, relatedBy: .equal,
                            toItem: photoImageView.superview, attribute: .bottom, multiplier: 1, constant: 0).isActive = true
         dismiss(animated: true, completion: nil)
     }
