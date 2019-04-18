@@ -20,7 +20,7 @@ protocol CustomCell: class {
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
-    @IBOutlet weak private var emptyRestaurantView: UIView!
+    @IBOutlet private weak var emptyRestaurantView: UIView!
     @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
@@ -40,11 +40,11 @@ class RestaurantTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        RestaurantGroup.populateDb()
         definesPresentationContext = true
         fetchResults()
         searchForResults()
         customizationNavigationBar()
+
         tableView.backgroundView = emptyRestaurantView
         tableView.backgroundView?.isHidden = true
     }
@@ -55,7 +55,7 @@ class RestaurantTableViewController: UIViewController {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
                 destinationController.restaurantDetails =
-                    (searchController.isActive) ? searchResults[indexPath.row] : Restaurant (restaurant: restaurantsMO[indexPath.row])
+                    (searchController.isActive) ? searchResults[indexPath.row] : Restaurant(restaurant: restaurantsMO[indexPath.row])
             }
         }
     }
@@ -67,7 +67,7 @@ class RestaurantTableViewController: UIViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search restaurants..."
         searchController.searchBar.barTintColor = .black
-        searchController.searchBar.tintColor = UIColor.customColor
+        searchController.searchBar.tintColor = .customColor
     }
 
     public func fetchResults() {
@@ -78,7 +78,6 @@ class RestaurantTableViewController: UIViewController {
             let context = database.context
             fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
             fetchResultController.delegate = self
-
             do {
                 try fetchResultController.performFetch()
                 if let fetchedObjects = fetchResultController.fetchedObjects {
@@ -113,12 +112,11 @@ extension RestaurantTableViewController: UITableViewDelegate {
             database.updateRestaurant(restaurant: restaurant)
 
             completionHandler(true)
-
         }
 
         let undoCheckIn = UIContextualAction(style: .normal, title: "undoCheckIn") {( _, _, completionHandler) in
-            let restaurantUndo = self.restaurantsMO[indexPath.row]
-            let restaurant = Restaurant(restaurant: restaurantUndo)
+            let restaurantToUndo = self.restaurantsMO[indexPath.row]
+            let restaurant = Restaurant(restaurant: restaurantToUndo)
             restaurant.isVisited = false
             database.updateRestaurant(restaurant: restaurant)
 
@@ -135,7 +133,6 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
-
                 let restaurantToDelete = self.fetchResultController.object(at: indexPath)
                 let myRestaurant = Restaurant(restaurant: restaurantToDelete)
                 database.deleteRestaurant(restaurant: myRestaurant)
@@ -179,30 +176,40 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
 extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.isActive {
-            return searchResults.count
-        } else {
-            return restaurantsMO.count
-        }
+        let count = searchController.isActive ? searchResults.count : restaurantsMO.count
+        return count
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        if restaurantsMO.count > 0 {
-            tableView.backgroundView?.isHidden = true
-            tableView.separatorStyle = .singleLine
-        } else {
-            tableView.backgroundView?.isHidden = false
-            tableView.separatorStyle = .none
-        }
+        restaurantsMO.count > 0 ? hideBackgroundView() : showBackgroundView()
         return 1
+    }
+
+    func hideBackgroundView() {
+        tableView.backgroundView?.isHidden = true
+        tableView.separatorStyle = .singleLine
+    }
+
+    func showBackgroundView() {
+        tableView.backgroundView?.isHidden = false
+        tableView.separatorStyle = .none
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
-        let restaurant = (searchController.isActive) ? searchResults[indexPath.row] : Restaurant(restaurant: restaurantsMO[indexPath.row])
+        let restaurant: Restaurant?
+        if searchController.isActive {
+            if indexPath.row < searchResults.count {
+                restaurant = searchResults[indexPath.row]
+            } else {
+                restaurant = nil
+            }
+        } else {
+            restaurant = Restaurant(restaurant: restaurantsMO[indexPath.row])
+        }
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
-
-        customCell?.configure(withModel: restaurant)
+        if let myRestaurant = restaurant {
+            customCell?.configure(withModel: myRestaurant)}
 
         return customCell as? UITableViewCell ?? UITableViewCell()
     }
@@ -246,19 +253,16 @@ extension RestaurantTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text {
             DispatchQueue.global(qos: .background).async {
-                self.searchResults = database.searchRestaurant(restaurantname: searchText)
-            }
-            DispatchQueue.main.async {
-                 self.tableView.reloadData()
+                self.searchResults = database.searchRestaurant(restaurantName: searchText)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if searchController.isActive {
-            return false
-        } else {
-            return true
-        }
+        let search =  searchController.isActive ? false : true
+        return search
     }
 }

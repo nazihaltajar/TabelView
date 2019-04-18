@@ -16,7 +16,7 @@ class ReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUpBlurEffect()
+        setupBlurEffect()
         setTransformActions()
     }
 
@@ -54,14 +54,14 @@ class ReviewViewController: UIViewController {
         }
     }
 
-    private func setUpBlurEffect() {
-
+    private func setupBlurEffect() {
         backgroundImageView.image = UIImage(data: restaurant.image)
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         backgroundImageView.addSubview(blurEffectView)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+
         blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
         blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
         blurEffectView.leftAnchor.constraint(equalTo: backgroundImageView.leftAnchor).isActive = true

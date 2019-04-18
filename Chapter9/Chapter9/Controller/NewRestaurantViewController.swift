@@ -10,6 +10,8 @@ import UIKit
 import CoreData
 
 class NewRestaurantViewController: UITableViewController, UINavigationControllerDelegate {
+    var restaurant: RestaurantMO!
+    var restaurants = [RestaurantMO]()
     @IBOutlet weak private var photoImageView: UIImageView!
     @IBOutlet weak private var nameTextField: RoundedTextFiled! {
         didSet {
@@ -39,7 +41,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     }
     @IBAction func saveButtonTapped() {
         if checkIfTextFieldsAreEmpty() {
-           let restaurantInit = Restaurant(name: nameTextField.text ?? "",
+           let restaurant = Restaurant(name: nameTextField.text ?? "",
                                     type: typeTextField.text ?? "",
                                     location: addressTextField.text ?? "",
                                     image: photoImageView.image?.pngData() ?? Data(),
@@ -48,7 +50,8 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
                                     isVisited: false,
                                     rating: "")
 
-            database.saveRestaurant(restaurant: restaurantInit)
+            database.saveRestaurant(restaurant: restaurant)
+
             dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
@@ -58,8 +61,6 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             present(alertMessage, animated: true, completion: nil)
         }
     }
-    var restaurant: RestaurantMO!
-    var restaurants = [RestaurantMO]()
 
     override func viewDidLoad() {
         super.viewDidLoad()

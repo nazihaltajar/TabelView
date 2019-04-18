@@ -17,6 +17,8 @@ enum CellTypes: Int {
 }
 
 class RestaurantDetailViewController: UIViewController {
+    var database = Database()
+    var restaurantDetails: Restaurant!
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
     @IBAction func close (segue: UIStoryboardSegue) {
@@ -26,14 +28,13 @@ class RestaurantDetailViewController: UIViewController {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
             database.saveContext()
+
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
             }
         }
         dismiss(animated: true, completion: nil)
     }
-    var database = Database()
-    var restaurantDetails: Restaurant!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +136,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .map:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailMapCell.self),
                                                      for: indexPath) as! RestaurantDetailMapCell
-                cell.configure(location: restaurantDetails?.location ?? "")
+            cell.configure(location: restaurantDetails?.location ?? "")
 
             return cell
         }

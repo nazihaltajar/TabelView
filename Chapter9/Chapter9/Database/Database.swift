@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 class Database {
-
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Chapter9")
         container.loadPersistentStores(completionHandler: { (_, error) in
@@ -87,15 +86,16 @@ class Database {
         }
     }
 
-    func searchRestaurant (restaurantname: String) -> [Restaurant] {
+    func searchRestaurant (restaurantName: String) -> [Restaurant] {
         var restaurantList = [Restaurant]()
         let context = persistentContainer.newBackgroundContext()
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "RestaurantMO")
-        let predicateName = NSPredicate(format: "name CONTAINS[c] %@ ", restaurantname)
-        let predicateLocation = NSPredicate(format: "location CONTAINS[c] %@ ", restaurantname)
+        let predicateName = NSPredicate(format: "name CONTAINS[c] %@ ", restaurantName)
+        let predicateLocation = NSPredicate(format: "location CONTAINS[c] %@ ", restaurantName)
         let predicate = NSCompoundPredicate (orPredicateWithSubpredicates: [predicateName, predicateLocation])
 
         request.predicate = predicate
+
         context.performAndWait {
             do {
                 let result = try context.fetch(request) as! [RestaurantMO]

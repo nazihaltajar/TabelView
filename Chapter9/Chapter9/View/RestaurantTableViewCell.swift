@@ -32,7 +32,6 @@ extension RestaurantTableViewCell: CustomCell {
         nameLabel.text = restaurant.name
         locationLabel.text = restaurant.location
         typeLabel.text = restaurant.type
-
         thumbnailImageView.image = UIImage(data: restaurant.image)
 
         let imageView = UIImageView(image: UIImage(named: imageName))
