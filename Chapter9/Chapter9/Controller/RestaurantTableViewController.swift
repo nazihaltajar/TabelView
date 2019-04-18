@@ -49,6 +49,16 @@ class RestaurantTableViewController: UIViewController {
         tableView.backgroundView?.isHidden = true
     }
 
+    private func hideBackgroundView() {
+        tableView.backgroundView?.isHidden = true
+        tableView.separatorStyle = .singleLine
+    }
+
+    private func showBackgroundView() {
+        tableView.backgroundView?.isHidden = false
+        tableView.separatorStyle = .none
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -183,16 +193,6 @@ extension RestaurantTableViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         restaurantsMO.count > 0 ? hideBackgroundView() : showBackgroundView()
         return 1
-    }
-
-    func hideBackgroundView() {
-        tableView.backgroundView?.isHidden = true
-        tableView.separatorStyle = .singleLine
-    }
-
-    func showBackgroundView() {
-        tableView.backgroundView?.isHidden = false
-        tableView.separatorStyle = .none
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

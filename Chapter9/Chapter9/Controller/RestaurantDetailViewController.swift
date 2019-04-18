@@ -17,7 +17,6 @@ enum CellTypes: Int {
 }
 
 class RestaurantDetailViewController: UIViewController {
-    var database = Database()
     var restaurantDetails: Restaurant!
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
@@ -27,7 +26,7 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
-            database.saveContext()
+            database.updateRestaurant(restaurant: restaurantDetails)
 
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)

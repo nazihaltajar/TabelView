@@ -38,7 +38,6 @@ class MapViewController: UIViewController {
         let geoCoder = CLGeocoder()
 
         geoCoder.geocodeAddressString(restaurant?.location ?? "", completionHandler: { placemarks, error in
-
             if let error = error {
                 print(error)
 

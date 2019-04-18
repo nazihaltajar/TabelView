@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+
 class Database {
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "Chapter9")
@@ -98,28 +99,12 @@ class Database {
 
         context.performAndWait {
             do {
-                let result = try context.fetch(request) as! [RestaurantMO]
-
-                for restaurantF in result {
-                    let restaurant = Restaurant(restaurant: restaurantF)
-                    restaurantList.append(restaurant)
-                }
+                let results = try context.fetch(request) as! [RestaurantMO]
+                results.forEach({ restaurantList.append(Restaurant(restaurant: $0)) })
             } catch {
                 print ("Error in search method")
             }
         }
         return restaurantList
-    }
-
-    func saveContext () {
-        let context = persistentContainer.viewContext
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
-        }
     }
 }
