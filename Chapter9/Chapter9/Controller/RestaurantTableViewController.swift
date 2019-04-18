@@ -198,18 +198,13 @@ extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
         let restaurant: Restaurant?
-        if searchController.isActive {
-            if indexPath.row < searchResults.count {
-                restaurant = searchResults[indexPath.row]
-            } else {
-                restaurant = nil
-            }
+        if searchController.isActive && indexPath.row < searchResults.count {
+            restaurant = searchResults[indexPath.row]
         } else {
             restaurant = Restaurant(restaurant: restaurantsMO[indexPath.row])
         }
         let customCell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
-        if let myRestaurant = restaurant {
-            customCell?.configure(withModel: myRestaurant)}
+        customCell?.configure(withModel: restaurant ?? Restaurant())
 
         return customCell as? UITableViewCell ?? UITableViewCell()
     }
@@ -262,7 +257,6 @@ extension RestaurantTableViewController: UISearchResultsUpdating {
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let search =  searchController.isActive ? false : true
-        return search
+        return !searchController.isActive
     }
 }
