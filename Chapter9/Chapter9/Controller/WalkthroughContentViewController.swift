@@ -8,7 +8,12 @@
 
 import UIKit
 
-class WalkthroughContentViewController: UITableViewController {
+class WalkthroughContentViewController: UIViewController {
+    var index = 0
+    var heading = ""
+    var subheading = ""
+    var imageFile = ""
+
     @IBOutlet var headingLabel: UILabel! {
         didSet {
             headingLabel.numberOfLines = 0
@@ -21,11 +26,6 @@ class WalkthroughContentViewController: UITableViewController {
     }
     @IBOutlet var contentImageView: UIImageView!
 
-    var index = 0
-    var heading = ""
-    var subheading = ""
-    var imageFile = ""
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,17 +33,4 @@ class WalkthroughContentViewController: UITableViewController {
         subHeadingLabel.text = subheading
         contentImageView.image = UIImage(named: imageFile)
     }
-
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-
 }

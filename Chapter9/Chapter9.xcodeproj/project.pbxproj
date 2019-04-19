@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE4034E92268C4B100B0AED2 /* WalkthroughPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4034E82268C4B100B0AED2 /* WalkthroughPageViewController.swift */; };
+		EE4034EB2268CEF800B0AED2 /* WalktroughViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4034EA2268CEF800B0AED2 /* WalktroughViewController.swift */; };
 		EE7F6D65224B99830043A3A0 /* Rubik-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE7F6D63224B99520043A3A0 /* Rubik-Black.ttf */; };
 		EE7F6D66224B99830043A3A0 /* Rubik-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE7F6D62224B99520043A3A0 /* Rubik-BlackItalic.ttf */; };
 		EE7F6D67224B99830043A3A0 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE7F6D5B224B99510043A3A0 /* Rubik-Bold.ttf */; };
@@ -45,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE4034E82268C4B100B0AED2 /* WalkthroughPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalkthroughPageViewController.swift; sourceTree = "<group>"; };
+		EE4034EA2268CEF800B0AED2 /* WalktroughViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalktroughViewController.swift; sourceTree = "<group>"; };
 		EE7F6D5B224B99510043A3A0 /* Rubik-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-Bold.ttf"; path = "../../../../../../Downloads/Rubik-2/Rubik-Bold.ttf"; sourceTree = "<group>"; };
 		EE7F6D5C224B99510043A3A0 /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-Italic.ttf"; path = "../../../../../../Downloads/Rubik-2/Rubik-Italic.ttf"; sourceTree = "<group>"; };
 		EE7F6D5D224B99510043A3A0 /* Rubik-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rubik-BoldItalic.ttf"; path = "../../../../../../Downloads/Rubik-2/Rubik-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -181,6 +185,8 @@
 				EE9054682255FA36009428B3 /* ReviewViewController.swift */,
 				EE937B37225B713100BD5F2D /* NewRestaurantViewController.swift */,
 				EE91DEE522677316004E5272 /* WalkthroughContentViewController.swift */,
+				EE4034E82268C4B100B0AED2 /* WalkthroughPageViewController.swift */,
+				EE4034EA2268CEF800B0AED2 /* WalktroughViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -336,12 +342,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE4034EB2268CEF800B0AED2 /* WalktroughViewController.swift in Sources */,
 				EE927F26225239E600CC12B5 /* UINavigationController-Extension.swift in Sources */,
 				EE93B905223B7F860079DE6F /* AppDelegate.swift in Sources */,
 				EE937B38225B713100BD5F2D /* NewRestaurantViewController.swift in Sources */,
 				EE91DEE622677316004E5272 /* WalkthroughContentViewController.swift in Sources */,
 				EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */,
 				EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */,
+				EE4034E92268C4B100B0AED2 /* WalkthroughPageViewController.swift in Sources */,
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
 				EE826EB6224D00B400BA1588 /* RestaurantDetailIconTextCellTableViewCell.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,

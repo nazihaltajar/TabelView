@@ -18,13 +18,13 @@
         </array>
     </customFonts>
     <scenes>
-        <!--Page View Controller-->
+        <!--Walkthrough Page View Controller-->
         <scene sceneID="1N2-uw-c1b">
             <objects>
-                <pageViewController storyboardIdentifier="WalkthroughController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="mid" doubleSided="YES" id="tgB-DT-cr2" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="WalkthroughPageViewController" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="mid" doubleSided="YES" id="tgB-DT-cr2" customClass="WalkthroughPageViewController" customModule="Chapter9" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pxk-J0-LJv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1127" y="-27"/>
+            <point key="canvasLocation" x="1114" y="-1"/>
         </scene>
         <!--Walkthrough Content View Controller-->
         <scene sceneID="iEM-BG-9Tk">
@@ -83,11 +83,10 @@
             </objects>
             <point key="canvasLocation" x="-473" y="0.0"/>
         </scene>
-        <!--View Controller-->
+        <!--Walktrough View Controller-->
         <scene sceneID="1hq-Ac-vH8">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="q3R-QW-PJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Zfc-w1-hir" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WalktroughViewController" id="Zfc-w1-hir" customClass="WalktroughViewController" customModule="Chapter9" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zZW-HW-Kja">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -121,6 +120,9 @@
                                                 <state key="normal" title="NEXT">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="nextButtonTappedWithSender:" destination="Zfc-w1-hir" eventType="touchUpInside" id="0Kd-lp-zhC"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="akC-1Y-Z9l">
                                                 <rect key="frame" x="78" y="127" width="34" height="33"/>
@@ -129,6 +131,9 @@
                                                 <state key="normal" title="Skip">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="skipButtonTappedWithSender:" destination="Zfc-w1-hir" eventType="touchUpInside" id="8gA-ut-cQu"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -153,7 +158,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="l96-05-cDy"/>
                     </view>
+                    <connections>
+                        <outlet property="nextButton" destination="bTT-qU-Qfs" id="JRE-Gb-0Jg"/>
+                        <outlet property="pageControl" destination="jxx-Ll-iik" id="VtK-9j-cuV"/>
+                        <outlet property="skipButton" destination="akC-1Y-Z9l" id="RUB-3n-NXa"/>
+                    </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q3R-QW-PJc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="312" y="98"/>
         </scene>

@@ -111,6 +111,16 @@ class RestaurantTableViewController: UIViewController {
 
         navigationController?.hidesBarsOnSwipe = true
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+        if UserDefaults.standard.bool(forKey: "hasViewedWalkthrough") { return }
+        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        if let walkthroughViewController = storyboard.instantiateViewController(withIdentifier: "WalktroughViewController") as? WalktroughViewController {
+            present(walkthroughViewController, animated: true, completion: nil)
+        }
+    }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
