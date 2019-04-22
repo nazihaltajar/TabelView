@@ -25,6 +25,7 @@ class RestaurantTableViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    private let storyboardName = "Onboarding"
     private let deleteText = "delete"
     private let shareText = "share"
     private let tickImageName = "tick"
@@ -32,10 +33,12 @@ class RestaurantTableViewController: UIViewController {
     private let heartImageName = "heart-tick"
     private var restaurantsMO = [RestaurantMO]()
 
-    var activityController: UIActivityViewController?
     var fetchResultController: NSFetchedResultsController<RestaurantMO>!
     var searchController: UISearchController!
     var searchResults: [Restaurant] = []
+
+    private var restaurants = [Restaurant]()
+    private var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +114,16 @@ class RestaurantTableViewController: UIViewController {
         super.viewWillAppear(animated)
 
         navigationController?.hidesBarsOnSwipe = true
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+        if UserDefaults.standard.bool(forKey: "hasViewedWalkthrough") { return }
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        if let walkthroughViewController = storyboard.instantiateViewController(withIdentifier: "WalktroughViewController") as? WalktroughViewController {
+            present(walkthroughViewController, animated: true, completion: nil)
+        }
     }
 }
 
