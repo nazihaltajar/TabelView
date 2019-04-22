@@ -10,6 +10,7 @@ import UIKit
 
 class WalktroughViewController: UIViewController {
     var walkthroughPageViewController: WalkthroughPageViewController?
+
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var nextButton: UIButton! {
         didSet {
@@ -25,7 +26,7 @@ class WalktroughViewController: UIViewController {
     @IBAction func nextButtonTapped(sender: UIButton) {
         if let index = walkthroughPageViewController?.currentIndex {
             switch index {
-            case 0...1:
+            case 0, 1:
                 walkthroughPageViewController?.forwardPage()
             case 2:
                 UserDefaults.standard.set(true, forKey: "hasViewedWalkthrough")

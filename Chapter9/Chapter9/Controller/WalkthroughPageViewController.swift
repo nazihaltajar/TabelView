@@ -40,14 +40,18 @@ class WalkthroughPageViewController: UIPageViewController {
 
 extension WalkthroughPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! WalkthroughContentViewController).index
+
+        guard let walkthroughViewController = viewController as? WalkthroughContentViewController else { return UIViewController()}
+        var index = walkthroughViewController.index
         index -= 1
 
         return contentViewController(at: index)
     }
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        var index = (viewController as! WalkthroughContentViewController).index
+
+        guard let walkthroughViewController = viewController as? WalkthroughContentViewController else { return UIViewController()}
+        var index = walkthroughViewController.index
         index += 1
 
         return contentViewController(at: index)
@@ -67,7 +71,7 @@ extension WalkthroughPageViewController: UIPageViewControllerDataSource {
 
         return pageContentViewController
     }
-    return nil
+        return nil
     }
 }
 

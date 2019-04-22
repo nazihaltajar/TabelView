@@ -23,13 +23,14 @@ class RestaurantTableViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
 
+    private let storyboardName = "Onboarding"
     private let deleteText = "delete"
     private let shareText = "share"
     private let tickImageName = "tick"
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
     private var restaurants = [Restaurant]()
-    var activityController: UIActivityViewController?
+    private var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +68,7 @@ class RestaurantTableViewController: UIViewController {
         super.viewDidAppear(true)
 
         if UserDefaults.standard.bool(forKey: "hasViewedWalkthrough") { return }
-        let storyboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
         if let walkthroughViewController = storyboard.instantiateViewController(withIdentifier: "WalktroughViewController") as? WalktroughViewController {
             present(walkthroughViewController, animated: true, completion: nil)
         }

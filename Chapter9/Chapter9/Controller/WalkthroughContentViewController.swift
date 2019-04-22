@@ -14,16 +14,8 @@ class WalkthroughContentViewController: UIViewController {
     var subheading = ""
     var imageFile = ""
 
-    @IBOutlet var headingLabel: UILabel! {
-        didSet {
-            headingLabel.numberOfLines = 0
-        }
-    }
-    @IBOutlet var subHeadingLabel: UILabel! {
-        didSet {
-            subHeadingLabel.numberOfLines = 0
-        }
-    }
+    @IBOutlet var headingLabel: UILabel!
+    @IBOutlet var subHeadingLabel: UILabel!
     @IBOutlet var contentImageView: UIImageView!
 
     override func viewDidLoad() {
