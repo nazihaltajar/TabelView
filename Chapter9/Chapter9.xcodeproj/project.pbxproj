@@ -43,6 +43,8 @@
 		EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */; };
 		EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */; };
 		EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */; };
+		EE9DB378226DC8120076CFD2 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB377226DC8120076CFD2 /* Discover.storyboard */; };
+		EE9DB37A226DCB4E0076CFD2 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB379226DCB4E0076CFD2 /* About.storyboard */; };
 		EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E20E2249042300E01596 /* RestaurantGroup.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +87,8 @@
 		EE93B910223B7F870079DE6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		EE9DB377226DC8120076CFD2 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Discover.storyboard; path = ../../Discover.storyboard; sourceTree = "<group>"; };
+		EE9DB379226DCB4E0076CFD2 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = About.storyboard; path = ../../About.storyboard; sourceTree = "<group>"; };
 		EEB3E20E2249042300E01596 /* RestaurantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +207,8 @@
 		EEB3E20B2248FF2500E01596 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				EE9DB379226DCB4E0076CFD2 /* About.storyboard */,
+				EE9DB377226DC8120076CFD2 /* Discover.storyboard */,
 				EE93B908223B7F860079DE6F /* Main.storyboard */,
 				EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */,
 				EE91DEE32267522B004E5272 /* Onboarding.storyboard */,
@@ -300,6 +306,7 @@
 			files = (
 				EE7F6D66224B99830043A3A0 /* Rubik-BlackItalic.ttf in Resources */,
 				EE7F6D6B224B99830043A3A0 /* Rubik-LightItalic.ttf in Resources */,
+				EE9DB37A226DCB4E0076CFD2 /* About.storyboard in Resources */,
 				EE7F6D67224B99830043A3A0 /* Rubik-Bold.ttf in Resources */,
 				EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */,
 				EE93B90C223B7F870079DE6F /* Assets.xcassets in Resources */,
@@ -307,6 +314,7 @@
 				EE7F6D69224B99830043A3A0 /* Rubik-Italic.ttf in Resources */,
 				EE7F6D6D224B99830043A3A0 /* Rubik-MediumItalic.ttf in Resources */,
 				EE7F6D65224B99830043A3A0 /* Rubik-Black.ttf in Resources */,
+				EE9DB378226DC8120076CFD2 /* Discover.storyboard in Resources */,
 				EE7F6D68224B99830043A3A0 /* Rubik-BoldItalic.ttf in Resources */,
 				EE7F6D6E224B99830043A3A0 /* Rubik-Regular.ttf in Resources */,
 				EE91DEE42267522B004E5272 /* Onboarding.storyboard in Resources */,
