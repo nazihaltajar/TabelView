@@ -11,12 +11,12 @@ class ReviewViewController: UIViewController {
     @IBOutlet weak private var backgroundImageView: UIImageView!
     @IBOutlet weak private var closeButton: UIButton!
     @IBOutlet private var rateButtons: [UIButton]!
-    var restaurant = Restaurant()
+    var restaurant: Restaurant!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setUpBlurEffect()
+        setupBlurEffect()
         setTransformActions()
     }
 
@@ -50,18 +50,18 @@ class ReviewViewController: UIViewController {
                                 button.transform = .identity
                 }, completion: nil)
                 delays += 0.05
-                })
-
+            })
         }
     }
 
-    private func setUpBlurEffect() {
-        backgroundImageView.image = UIImage(named: restaurant.image)
+    private func setupBlurEffect() {
+        backgroundImageView.image = UIImage(data: restaurant.image)
         let blurEffect = UIBlurEffect(style: .dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = view.bounds
         backgroundImageView.addSubview(blurEffectView)
         blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+
         blurEffectView.topAnchor.constraint(equalTo: backgroundImageView.topAnchor).isActive = true
         blurEffectView.bottomAnchor.constraint(equalTo: backgroundImageView.bottomAnchor).isActive = true
         blurEffectView.leftAnchor.constraint(equalTo: backgroundImageView.leftAnchor).isActive = true

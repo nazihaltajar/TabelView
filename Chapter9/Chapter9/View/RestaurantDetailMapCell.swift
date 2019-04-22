@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 class RestaurantDetailMapCell: UITableViewCell {
-
     @IBOutlet weak private var mapView: MKMapView!
 
     func configure(location: String) {

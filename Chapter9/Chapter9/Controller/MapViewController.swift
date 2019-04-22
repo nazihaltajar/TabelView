@@ -11,8 +11,7 @@ import MapKit
 
 class MapViewController: UIViewController {
     @IBOutlet weak private var mapView: MKMapView!
-
-    var restaurant = Restaurant()
+    var restaurant: Restaurant?
     let markName = "MyMarker"
 
     override func viewDidLoad() {
@@ -38,7 +37,7 @@ class MapViewController: UIViewController {
     private func setUpMap() {
         let geoCoder = CLGeocoder()
 
-        geoCoder.geocodeAddressString(restaurant.location, completionHandler: { placemarks, error in
+        geoCoder.geocodeAddressString(restaurant?.location ?? "", completionHandler: { placemarks, error in
             if let error = error {
                 print(error)
 
@@ -46,8 +45,8 @@ class MapViewController: UIViewController {
             }
             if let placemark = placemarks?[0] {
                 let annotation = MKPointAnnotation()
-                annotation.title = self.restaurant.name
-                annotation.subtitle = self.restaurant.type
+                annotation.title = self.restaurant?.name
+                annotation.subtitle = self.restaurant?.type
 
                 if let location = placemark.location {
                     annotation.coordinate = location.coordinate

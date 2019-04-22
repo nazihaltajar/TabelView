@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum CellIdentifier: String {
     case restaurantCellIdentifier
@@ -19,24 +20,47 @@ protocol CustomCell: class {
 
 class RestaurantTableViewController: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
+    @IBOutlet private weak var emptyRestaurantView: UIView!
     @IBAction private func unwindToHome(segue: UIStoryboardSegue) {
         dismiss(animated: true, completion: nil)
     }
 
+    private let storyboardName = "Onboarding"
     private let deleteText = "delete"
     private let shareText = "share"
     private let tickImageName = "tick"
     private let undoImageName = "undo"
     private let heartImageName = "heart-tick"
+    private var restaurantsMO = [RestaurantMO]()
+
+    var fetchResultController: NSFetchedResultsController<RestaurantMO>!
+    var searchController: UISearchController!
+    var searchResults: [Restaurant] = []
+
     private var restaurants = [Restaurant]()
-    var activityController: UIActivityViewController?
+    private var activityController: UIActivityViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let restaurantGroup = RestaurantGroup()
-        restaurants = restaurantGroup.restaurants
+        definesPresentationContext = true
+        fetchResults()
+        searchForResults()
+
         customizationNavigationBar()
+
+        tableView.backgroundView = emptyRestaurantView
+        tableView.backgroundView?.isHidden = true
+    }
+
+    private func hideBackgroundView() {
+        tableView.backgroundView?.isHidden = true
+        tableView.separatorStyle = .singleLine
+    }
+
+    private func showBackgroundView() {
+        tableView.backgroundView?.isHidden = false
+        tableView.separatorStyle = .none
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,9 +68,38 @@ class RestaurantTableViewController: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 guard let destinationController = segue.destination as? RestaurantDetailViewController else { return }
 
-                destinationController.restaurantDetails = restaurants[indexPath.row]
+                destinationController.restaurantDetails =
+                    (searchController.isActive) ? searchResults[indexPath.row] : Restaurant(restaurant: restaurantsMO[indexPath.row])
             }
         }
+    }
+
+    public func searchForResults() {
+        searchController = UISearchController(searchResultsController: nil)
+        tableView.tableHeaderView = searchController.searchBar
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search restaurants..."
+        searchController.searchBar.barTintColor = .black
+        searchController.searchBar.tintColor = .customColor
+    }
+
+    public func fetchResults() {
+        let fetchRequest: NSFetchRequest<RestaurantMO> = RestaurantMO.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+            let context = database.context
+            fetchResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+            fetchResultController.delegate = self
+            do {
+                try fetchResultController.performFetch()
+                if let fetchedObjects = fetchResultController.fetchedObjects {
+                    restaurantsMO = fetchedObjects
+                }
+            } catch {
+                print(error)
+            }
     }
 
     public func customizationNavigationBar() {
@@ -62,23 +115,34 @@ class RestaurantTableViewController: UIViewController {
 
         navigationController?.hidesBarsOnSwipe = true
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+        if UserDefaults.standard.bool(forKey: "hasViewedWalkthrough") { return }
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        if let walkthroughViewController = storyboard.instantiateViewController(withIdentifier: "WalktroughViewController") as? WalktroughViewController {
+            present(walkthroughViewController, animated: true, completion: nil)
+        }
+    }
 }
 
 extension RestaurantTableViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let checkInAction = UIContextualAction(style: .normal, title: "checkIn") {(_, _, completionHandler) in
-            let cell = tableView.cellForRow(at: indexPath)
-            self.restaurants[indexPath.row].isVisited = true
-            let imageView = UIImageView(image: UIImage(named: self.heartImageName))
-            cell?.accessoryView = imageView
+            let restaurantCheck = self.restaurantsMO[indexPath.row]
+            let restaurant = Restaurant(restaurant: restaurantCheck)
+            restaurant.isVisited = true
+            database.updateRestaurant(restaurant: restaurant)
 
             completionHandler(true)
         }
 
         let undoCheckIn = UIContextualAction(style: .normal, title: "undoCheckIn") {( _, _, completionHandler) in
-            let cell = tableView.cellForRow(at: indexPath)
-            self.restaurants[indexPath.row].isVisited = false
-            cell?.accessoryView = .none
+            let restaurantToUndo = self.restaurantsMO[indexPath.row]
+            let restaurant = Restaurant(restaurant: restaurantToUndo)
+            restaurant.isVisited = false
+            database.updateRestaurant(restaurant: restaurant)
 
             completionHandler(true)
         }
@@ -88,21 +152,24 @@ extension RestaurantTableViewController: UITableViewDelegate {
         undoCheckIn.image = UIImage(named: undoImageName)
         undoCheckIn.backgroundColor = .undoCheckInColor
 
-        return restaurants[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
+        return restaurantsMO[indexPath.row].isVisited ? UISwipeActionsConfiguration(actions: [undoCheckIn]) : UISwipeActionsConfiguration (actions: [checkInAction])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: deleteText) {(_, _, completionHandler) in
-            self.restaurants.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+                let restaurantToDelete = self.fetchResultController.object(at: indexPath)
+                let myRestaurant = Restaurant(restaurant: restaurantToDelete)
+                database.deleteRestaurant(restaurant: myRestaurant)
 
             completionHandler(true)
         }
 
         let shareAction = UIContextualAction(style: .normal, title: shareText) {(_, _, completionHandler) in
-            let defaultText = "Just checking in at " + self.restaurants[indexPath.row].name
 
-            if let imageToShare = UIImage(named: self.restaurants[indexPath.row].image) {
+            let defaultText = "Just checking in at " + (self.restaurantsMO[indexPath.row].name ?? "")
+
+            if let restaurantImage = self.restaurantsMO[indexPath.row].image,
+                let imageToShare = UIImage(data: restaurantImage as Data ) {
                 self.activityController = UIActivityViewController(activityItems: [defaultText, imageToShare], applicationActivities: nil)
             } else {
                 self.activityController = UIActivityViewController(activityItems: [defaultText], applicationActivities: nil)
@@ -133,16 +200,77 @@ extension RestaurantTableViewController: UITableViewDelegate {
 
 extension RestaurantTableViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return restaurants.count
+        let count = searchController.isActive ? searchResults.count : restaurantsMO.count
+        return count
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        restaurantsMO.count > 0 ? hideBackgroundView() : showBackgroundView()
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let restaurant = restaurants[indexPath.row]
-        let customCell = tableView.dequeueReusableCell(
-            withIdentifier: restaurant.cellType.rawValue, for: indexPath) as? CustomCell
-
-        customCell?.configure(withModel: restaurant)
+        let cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
+        let restaurant: Restaurant?
+        if searchController.isActive && indexPath.row < searchResults.count {
+            restaurant = searchResults[indexPath.row]
+        } else {
+            restaurant = Restaurant(restaurant: restaurantsMO[indexPath.row])
+        }
+        let customCell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as? CustomCell
+        customCell?.configure(withModel: restaurant ?? Restaurant())
 
         return customCell as? UITableViewCell ?? UITableViewCell()
+    }
+}
+
+extension RestaurantTableViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any,
+                    at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .fade)
+            }
+        default:
+            tableView.reloadData()
+        }
+
+        if let fetchedObjects = controller.fetchedObjects {
+            restaurantsMO = fetchedObjects as! [RestaurantMO]
+        }
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+}
+
+extension RestaurantTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if let searchText = searchController.searchBar.text {
+            DispatchQueue.global(qos: .background).async {
+                self.searchResults = database.searchRestaurant(restaurantName: searchText)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return !searchController.isActive
     }
 }
