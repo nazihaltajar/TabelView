@@ -22,4 +22,5 @@ extension UIColor {
     static let deleteColor = UIColor(red: 80, green: 0, blue: 0)
     static let shareColor = UIColor(red: 255, green: 0, blue: 38)
     static let customColor = UIColor(red: 231, green: 76, blue: 60)
+    static let tabBarTintColor = UIColor(red: 231, green: 76, blue: 60)
 }
