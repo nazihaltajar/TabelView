@@ -45,6 +45,8 @@
 		EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */; };
 		EE9DB378226DC8120076CFD2 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB377226DC8120076CFD2 /* Discover.storyboard */; };
 		EE9DB37A226DCB4E0076CFD2 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB379226DCB4E0076CFD2 /* About.storyboard */; };
+		EE9DB37C226DE3980076CFD2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */; };
+		EE9DB37E226DFE1D0076CFD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */; };
 		EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E20E2249042300E01596 /* RestaurantGroup.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,9 @@
 		EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
 		EE9DB377226DC8120076CFD2 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Discover.storyboard; path = ../../Discover.storyboard; sourceTree = "<group>"; };
 		EE9DB379226DCB4E0076CFD2 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = About.storyboard; path = ../../About.storyboard; sourceTree = "<group>"; };
+		EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
+		EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		EE9DB37F226EE8F90076CFD2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		EEB3E20E2249042300E01596 /* RestaurantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,6 +137,7 @@
 		EE8D92C422539A7C005C9C86 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE9DB37F226EE8F90076CFD2 /* WebKit.framework */,
 				EE8D92C522539A7C005C9C86 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -191,6 +197,8 @@
 				EE91DEE522677316004E5272 /* WalkthroughContentViewController.swift */,
 				EE4034E82268C4B100B0AED2 /* WalkthroughPageViewController.swift */,
 				EE4034EA2268CEF800B0AED2 /* WalktroughViewController.swift */,
+				EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */,
+				EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -357,11 +365,13 @@
 				EE91DEE622677316004E5272 /* WalkthroughContentViewController.swift in Sources */,
 				EE9054692255FA36009428B3 /* ReviewViewController.swift in Sources */,
 				EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */,
+				EE9DB37E226DFE1D0076CFD2 /* WebViewController.swift in Sources */,
 				EE4034E92268C4B100B0AED2 /* WalkthroughPageViewController.swift in Sources */,
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
 				EE826EB6224D00B400BA1588 /* RestaurantDetailIconTextCellTableViewCell.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,
 				EE93B1CD225F58DB00B2D92A /* Restaurant.swift in Sources */,
+				EE9DB37C226DE3980076CFD2 /* AboutTableViewController.swift in Sources */,
 				EE93B1CB225F545900B2D92A /* Chapter9.xcdatamodeld in Sources */,
 				EE8D92CA2253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift in Sources */,
 				EE8D92CC2253B7B5005C9C86 /* RestaurantDetailMapCell.swift in Sources */,
