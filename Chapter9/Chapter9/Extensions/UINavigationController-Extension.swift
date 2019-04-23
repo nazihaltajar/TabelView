@@ -18,6 +18,7 @@ extension UINavigationController {
         self.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationBar.shadowImage = UIImage()
     }
+
     public func setBackButtonTintColor(mycolor: UIColor) {
         self.navigationBar.tintColor = mycolor
     }
