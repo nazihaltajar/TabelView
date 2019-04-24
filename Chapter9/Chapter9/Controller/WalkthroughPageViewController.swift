@@ -12,11 +12,11 @@ protocol WalkthroughPageViewControllerDelegate: class {
 }
 
 class WalkthroughPageViewController: UIPageViewController {
-    var pageHeadings = ["CREATE YOUR OWN FOOD GUIDE", "SHOW YOU THE LOCATION", "DISCOVER GREAT RESTAURANTS"]
+    var pageHeadings = ["WalkPage.headings01".localized, "WalkPage.headings02".localized, "WalkPage.headings03".localized]
     var pageImages = ["onboarding-1", "onboarding-2", "onboarding-3"]
-    var pageSubHeadings = ["Pin your favourite restaurants and create your oen food guide",
-                           "Search and locate your favourite restaurant on Maps",
-                           "Find restaurants shared by your friends and other foodies"]
+    var pageSubHeadings = ["WalkPage.subheadings01".localized,
+                           "WalkPage.subheadings02".localized,
+                           "WalkPage.subheadings03".localized]
     var currentIndex = 0
     weak var walkthroughDelegate: WalkthroughPageViewControllerDelegate?
 

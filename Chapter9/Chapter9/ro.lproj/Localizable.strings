@@ -1,0 +1,43 @@
+/* 
+  Localized.strings
+  Chapter9
+
+  Created by Nazih Al Tajar on 23/04/2019.
+  Copyright © 2019 sss. All rights reserved.
+*/
+"About.sectionContent01.text" = "Evaluați-ne pe App Store";
+"About.sectionContent02.text" = "Spuneți-ne feedbackul dvs.";
+"About.sectionContent03.text" = "Twitter";
+"About.sectionContent04.text" = "Facebook";
+"About.sectionContent05.text" = "Instagram";
+
+"WalkView.button" = "URMATORUL";
+"WalkView.button1" = "INCEPE";
+"WalkView.button2" = "OMITE";
+
+"WalkPage.headings01" = "CREEAZA-TI PROPRIUL GHID ALIMENTAR";
+"WalkPage.headings02" = "EVIDENȚIAȚI LOCAȚIA";
+"WalkPage.headings03" = "DESCOPERA RESTAURANTE FRUMOASE";
+
+"WalkPage.subheadings01" = "Puneți-vă restaurantele preferate și creați propriul ghid de hrană";
+"WalkPage.subheadings02" = "Căutați și localizați restaurantul preferat în sectiunea Hărți";
+"WalkPage.subheadings03" = "Găsiți restaurantele împărtășite de prietenii dvs. și alte produse alimentare";
+
+"New.alertMessage01" = "Nu putem continua deoarece unul dintre câmpuri este necompletat. Rețineți că toate câmpurile sunt obligatorii.";
+"New.alertMessage02" = "Alegeți sursa foto";
+"New.topTitle" = "Restaurant nou";
+"New.nameField" = "NUME";
+"New.typeField" = "TIPUL";
+"New.addressField" = "ADRESA";
+"New.phoneField" = "TELEFON";
+"New.descriptionField" = "DESCRIERE";
+"New.descriptionTextView" = "Un restaurant excelent";
+"New.nameTextView" = "Completați numele restaurantului";
+"New.typeTextView" = "Completați tipul restaurantului";
+"New.addressTextView" = "Completați adresa restaurantului";
+"New.phoneTextView" = "Completați numarul restaurantului";
+
+"RestaurantDetail.titleLabel" = "CUM SA AJUNGI AICI";
+"RestaurantDetail.buttonRate" = "Acorda nota";
+
+"RestaurantTable.searchPlaceholder" = "Cautare restaurant...";

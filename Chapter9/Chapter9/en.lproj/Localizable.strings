@@ -1,0 +1,45 @@
+/*
+  Localized.strings
+  Chapter9
+
+  Created by Nazih Al Tajar on 23/04/2019.
+  Copyright © 2019 sss. All rights reserved.
+*/
+"About.sectionContent01.text" = "Rate us on App Store";
+"About.sectionContent02.text" = "Tell us your feedback";
+"About.sectionContent03.text" = "Twitter";
+"About.sectionContent04.text" = "Facebook";
+"About.sectionContent05.text" = "Instagram";
+
+"WalkView.button" = "NEXT";
+"WalkView.button1" = "GET STARTED";
+"WalkView.button2" = "SKIP";
+
+"WalkPage.headings01" = "CREATE YOUR OWN FOOD GUIDE";
+"WalkPage.headings02" = "SHOW YOU THE LOCATION";
+"WalkPage.headings03" = "DISCOVER GREAT RESTAURANTS";
+
+"WalkPage.subheadings01" = "Pin your favourite restaurants and create your oen food guide";
+"WalkPage.subheadings02" = "Search and locate your favourite restaurant on Maps";
+"WalkPage.subheadings03" = "Find restaurants shared by your friends and other foodies";
+
+"New.alertMessage01" = "We can't proceed because one of the fields is blank. Please note that all fields are required.";
+"New.alertMessage02" = "Choose your photo source";
+"New.topTitle" = "New Restaurant";
+"New.nameField" = "NAME";
+"New.typeField" = "TYPE";
+"New.addressField" = "ADDRESS";
+"New.phoneField" = "PHONE";
+"New.descriptionField" = "DESCRIPTION";
+"New.descriptionTextView" = "A great restaurant to try out";
+"New.nameTextView" = "Fill in the restaurant name";
+"New.typeTextView" = "Fill in the type name";
+"New.addressTextView" = "Fill in the address name";
+"New.phoneTextView" = "Fill in the phone number";
+
+
+"RestaurantDetail.titleLabel" = "HOW TO GET HERE";
+"RestaurantDetail.buttonRate" = "Rate it";
+
+"RestaurantTable.searchPlaceholder" = "Search restaurants...";
+

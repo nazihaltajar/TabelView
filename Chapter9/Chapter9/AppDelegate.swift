@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let backButtonImage = UIImage(named: "back")
         UINavigationBar.appearance().backIndicatorImage = backButtonImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
-        //RestaurantGroup.populateDb()
+        RestaurantGroup.populateDb()
         UITabBar.appearance().tintColor = .tabBarTintColor
         UITabBar.appearance().barTintColor = .black
 

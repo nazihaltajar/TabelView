@@ -43,6 +43,8 @@
 		EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE93B90D223B7F870079DE6F /* LaunchScreen.storyboard */; };
 		EE93B918223B85AA0079DE6F /* RestaurantTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */; };
 		EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */; };
+		EE9A253F226F4B13005B3BD1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE9A2541226F4B13005B3BD1 /* Localizable.strings */; };
+		EE9A2546226F4C5A005B3BD1 /* String+localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9A2545226F4C5A005B3BD1 /* String+localized.swift */; };
 		EE9DB378226DC8120076CFD2 /* Discover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB377226DC8120076CFD2 /* Discover.storyboard */; };
 		EE9DB37A226DCB4E0076CFD2 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE9DB379226DCB4E0076CFD2 /* About.storyboard */; };
 		EE9DB37C226DE3980076CFD2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */; };
@@ -89,6 +91,9 @@
 		EE93B910223B7F870079DE6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EE93B917223B85AA0079DE6F /* RestaurantTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewController.swift; sourceTree = "<group>"; };
 		EE93B919223BA3B10079DE6F /* RestaurantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantTableViewCell.swift; sourceTree = "<group>"; };
+		EE9A2540226F4B13005B3BD1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE9A2544226F4B28005B3BD1 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE9A2545226F4C5A005B3BD1 /* String+localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+localized.swift"; sourceTree = "<group>"; };
 		EE9DB377226DC8120076CFD2 /* Discover.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Discover.storyboard; path = ../../Discover.storyboard; sourceTree = "<group>"; };
 		EE9DB379226DCB4E0076CFD2 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = About.storyboard; path = ../../About.storyboard; sourceTree = "<group>"; };
 		EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +187,7 @@
 				EE93B904223B7F860079DE6F /* AppDelegate.swift */,
 				EE93B90B223B7F870079DE6F /* Assets.xcassets */,
 				EE93B910223B7F870079DE6F /* Info.plist */,
+				EE9A2541226F4B13005B3BD1 /* Localizable.strings */,
 			);
 			path = Chapter9;
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 			children = (
 				EE8EFA6C2244F78700E478A9 /* UIColor-Extension.swift */,
 				EE927F25225239E600CC12B5 /* UINavigationController-Extension.swift */,
+				EE9A2545226F4C5A005B3BD1 /* String+localized.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -296,6 +303,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ro,
 			);
 			mainGroup = EE93B8F8223B7F860079DE6F;
 			productRefGroup = EE93B902223B7F860079DE6F /* Products */;
@@ -317,6 +325,7 @@
 				EE9DB37A226DCB4E0076CFD2 /* About.storyboard in Resources */,
 				EE7F6D67224B99830043A3A0 /* Rubik-Bold.ttf in Resources */,
 				EE93B90F223B7F870079DE6F /* LaunchScreen.storyboard in Resources */,
+				EE9A253F226F4B13005B3BD1 /* Localizable.strings in Resources */,
 				EE93B90C223B7F870079DE6F /* Assets.xcassets in Resources */,
 				EE7F6D6A224B99830043A3A0 /* Rubik-Light.ttf in Resources */,
 				EE7F6D69224B99830043A3A0 /* Rubik-Italic.ttf in Resources */,
@@ -375,6 +384,7 @@
 				EE93B1CB225F545900B2D92A /* Chapter9.xcdatamodeld in Sources */,
 				EE8D92CA2253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift in Sources */,
 				EE8D92CC2253B7B5005C9C86 /* RestaurantDetailMapCell.swift in Sources */,
+				EE9A2546226F4C5A005B3BD1 /* String+localized.swift in Sources */,
 				EE8EFA73224510D500E478A9 /* RestaurantDetailViewController.swift in Sources */,
 				EE937B36225B69CF00BD5F2D /* RoundedTextFiled.swift in Sources */,
 				EE93B91A223BA3B10079DE6F /* RestaurantTableViewCell.swift in Sources */,
@@ -404,6 +414,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		EE9A2541226F4B13005B3BD1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE9A2540226F4B13005B3BD1 /* en */,
+				EE9A2544226F4B28005B3BD1 /* ro */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -411,6 +430,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -472,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

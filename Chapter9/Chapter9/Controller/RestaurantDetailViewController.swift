@@ -18,6 +18,7 @@ enum CellTypes: Int {
 
 class RestaurantDetailViewController: UIViewController {
     var restaurantDetails: Restaurant!
+    @IBOutlet weak var rateButton: UIButton!
     @IBOutlet private weak var restaurantTableView: UITableView!
     @IBOutlet private weak var restaurantHeaderView: RestaurantDetailHeaderView!
     @IBAction func close (segue: UIStoryboardSegue) {
@@ -38,6 +39,7 @@ class RestaurantDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        rateButton.setTitle("RestaurantDetail.buttonRate".localized, for: .normal)
         restaurantTableView.delegate = self
         restaurantTableView.dataSource = self
         customizeNavigationBar()
@@ -128,7 +130,7 @@ extension RestaurantDetailViewController: UITableViewDataSource {
         case .headerMap:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: RestaurantDetailSeparatorCell.self),
                                                      for: indexPath) as! RestaurantDetailSeparatorCell
-            cell.titleLabel.text = "HOW TO GET HERE"
+            cell.titleLabel.text = "RestaurantDetail.titleLabel".localized
             cell.selectionStyle = .none
 
             return cell

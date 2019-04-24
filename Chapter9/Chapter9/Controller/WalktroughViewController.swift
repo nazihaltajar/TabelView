@@ -38,6 +38,12 @@ class WalktroughViewController: UIViewController {
         updateUI()
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        skipButton.setTitle("WalkView.button2".localized, for: .normal)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination
         if let pageViewController = destination as? WalkthroughPageViewController {
@@ -50,10 +56,10 @@ class WalktroughViewController: UIViewController {
         if let index = walkthroughPageViewController?.currentIndex {
             switch index {
             case 0...1:
-                nextButton.setTitle("NEXT", for: .normal)
+                nextButton.setTitle("WalkView.button".localized, for: .normal)
                 skipButton.isHidden = false
             case 2:
-                nextButton.setTitle("GET STARTED", for: .normal)
+                nextButton.setTitle("WalkView.button1".localized, for: .normal)
                 skipButton.isHidden = true
             default:
                 break
