@@ -12,6 +12,12 @@ import CoreData
 class NewRestaurantViewController: UITableViewController, UINavigationControllerDelegate {
     var restaurant: RestaurantMO!
     var restaurants = [RestaurantMO]()
+    @IBOutlet weak var topTitle: UINavigationItem!
+    @IBOutlet weak private var nameField: UILabel!
+    @IBOutlet weak private var typeField: UILabel!
+    @IBOutlet weak private var addressField: UILabel!
+    @IBOutlet weak private var phoneField: UILabel!
+    @IBOutlet weak private var descriptionField: UILabel!
     @IBOutlet weak private var photoImageView: UIImageView!
     @IBOutlet weak private var nameTextField: RoundedTextFiled! {
         didSet {
@@ -55,7 +61,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             dismiss(animated: true, completion: nil)
         } else {
             let alertMessage = UIAlertController(title: "Ooops",
-                                                 message: "We can't proceed because one of the fields is blank. Please note that all fields are required.",
+                                                 message: "New.alertMessage01".localized,
                                                  preferredStyle: .alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alertMessage, animated: true, completion: nil)
@@ -65,11 +71,12 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        makeLocalizedProperties()
         navigationController?.setBackButtonTintColor(mycolor: .white)
         customizationNavigationBar()
     }
 
-    func checkIfTextFieldsAreEmpty () -> Bool {
+    private func checkIfTextFieldsAreEmpty () -> Bool {
         guard let name = nameTextField.text, !name.isEmpty,
             let type = typeTextField.text, !type.isEmpty,
             let address = addressTextField.text, !address.isEmpty,
@@ -77,9 +84,21 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
             let description = descriptionTextView.text, !description.isEmpty
             else { return false }
 
-        print (name, type, address, phone, description)
-
         return true
+    }
+
+    private func makeLocalizedProperties() {
+        topTitle.title = "New.topTitle".localized
+        nameField.text = "New.nameField".localized
+        typeField.text = "New.typeField".localized
+        addressField.text = "New.addressField".localized
+        phoneField.text = "New.phoneField".localized
+        descriptionField.text = "New.descriptionField".localized
+        nameTextField.placeholder = "New.nameTextView".localized
+        typeTextField.placeholder = "New.typeTextView".localized
+        addressTextField.placeholder = "New.addressTextView".localized
+        phoneTextField.placeholder = "New.phoneTextView".localized
+        descriptionTextView.text = "New.descriptionTextView".localized
     }
 
     public func customizationNavigationBar() {
@@ -105,7 +124,7 @@ extension NewRestaurantViewController: UITextFieldDelegate {
 extension NewRestaurantViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            let photoSourceRequestController = UIAlertController(title: "", message: "Choose your photo source", preferredStyle: .alert)
+            let photoSourceRequestController = UIAlertController(title: "", message: "New.alertMessage02".localized, preferredStyle: .alert)
             let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: { (_) in
                 if UIImagePickerController.isSourceTypeAvailable(.camera) {
                     let imagePicker = UIImagePickerController()

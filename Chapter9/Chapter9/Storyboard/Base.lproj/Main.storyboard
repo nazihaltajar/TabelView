@@ -387,6 +387,7 @@
                     </view>
                     <size key="freeformSize" width="414" height="1000"/>
                     <connections>
+                        <outlet property="rateButton" destination="q5Y-El-Ya4" id="qV2-aU-P0G"/>
                         <outlet property="restaurantHeaderView" destination="si0-jF-8MI" id="A8A-8L-v64"/>
                         <outlet property="restaurantTableView" destination="aQt-Ur-FDO" id="FzB-eK-VOD"/>
                     </connections>
@@ -585,7 +586,7 @@
                                                         </label>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Fill in the restaurant name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vdU-37-7cU">
                                                             <rect key="frame" x="0.0" y="32.5" width="370" height="27.5"/>
-                                                            <nil key="textColor"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
                                                         </textField>
@@ -761,11 +762,17 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addressField" destination="WiF-wl-ehV" id="Iz0-yp-Hxm"/>
                         <outlet property="addressTextField" destination="YeU-x5-Hmp" id="56Y-0E-ijx"/>
+                        <outlet property="descriptionField" destination="S6o-mQ-5vq" id="VZA-7r-DOw"/>
                         <outlet property="descriptionTextView" destination="XO5-CU-7sW" id="gup-HB-fIz"/>
+                        <outlet property="nameField" destination="gxE-jI-m1f" id="ro9-4q-noZ"/>
                         <outlet property="nameTextField" destination="vdU-37-7cU" id="oxn-XQ-f7U"/>
+                        <outlet property="phoneField" destination="gd8-FB-Z7P" id="sbD-QO-gDp"/>
                         <outlet property="phoneTextField" destination="k0W-tF-0qp" id="vqK-u5-yHp"/>
                         <outlet property="photoImageView" destination="VDp-d2-vHx" id="S1e-Uh-yCT"/>
+                        <outlet property="topTitle" destination="4uH-mQ-hVJ" id="hC7-yq-9FK"/>
+                        <outlet property="typeField" destination="MwO-K5-cfl" id="lw1-Im-EvR"/>
                         <outlet property="typeTextField" destination="COB-sY-iZD" id="zep-E2-nZz"/>
                     </connections>
                 </tableViewController>

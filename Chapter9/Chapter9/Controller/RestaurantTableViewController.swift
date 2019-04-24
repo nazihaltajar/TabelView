@@ -79,7 +79,7 @@ class RestaurantTableViewController: UIViewController {
         tableView.tableHeaderView = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search restaurants..."
+        searchController.searchBar.placeholder = "RestaurantTable.searchPlaceholder".localized
         searchController.searchBar.barTintColor = .black
         searchController.searchBar.tintColor = .customColor
     }
