@@ -28,7 +28,13 @@ class RestaurantDetailHeaderView: UIView {
     }
 
     public func setupHeaderView(restaurantDetails: Restaurant) {
-        headerImageView.image = UIImage(data: restaurantDetails.image )
+        if let image = restaurantDetails.image {
+            headerImageView.image = UIImage(data: image)
+        } else {
+            database.uploadImage(restaurant: restaurantDetails, verified: { (image) in
+            self.headerImageView.image = UIImage(data: image)
+            })
+        }
         heartImageView.isHidden = (restaurantDetails.isVisited) ? false : true
         nameLabel.text = restaurantDetails.name
         typeLabel.text = restaurantDetails.type
