@@ -56,7 +56,7 @@ class NewRestaurantViewController: UITableViewController, UINavigationController
                                     isVisited: false,
                                     rating: "")
 
-            database.saveRestaurant(restaurant: restaurant)
+            database.saveRestaurant(restaurant: restaurant, completion: {_ in})
 
             dismiss(animated: true, completion: nil)
         } else {

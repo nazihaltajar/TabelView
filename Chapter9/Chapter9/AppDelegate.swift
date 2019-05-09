@@ -8,8 +8,22 @@
 
 import UIKit
 import CoreData
+import Firebase
 
-let database = Database()
+enum QuickAction: String {
+    case OpenFavourites = "OpenFavorites"
+    case OpenDiscover = "OpenDiscover"
+    case NewRestaurant = "NewRestaurant"
+
+    init?(fullIdentifier: String) {
+        guard let shortcutIdentifier = fullIdentifier.components(separatedBy: ".").last
+            else {
+                return nil
+        }
+        self.init(rawValue: shortcutIdentifier)
+    }
+}
+var database: DatabaseProtocol = FirebaseDatabase()
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,10 +33,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let backButtonImage = UIImage(named: "back")
         UINavigationBar.appearance().backIndicatorImage = backButtonImage
         UINavigationBar.appearance().backIndicatorTransitionMaskImage = backButtonImage
-        RestaurantGroup.populateDb()
+        //RestaurantGroup.populateDb()
         UITabBar.appearance().tintColor = .tabBarTintColor
         UITabBar.appearance().barTintColor = .black
 
+        return true
+    }
+
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        completionHandler(handleQuickAction(shortcutItem: shortcutItem))
+    }
+
+    private func handleQuickAction (shortcutItem: UIApplicationShortcutItem) -> Bool {
+        let shortcutType = shortcutItem.type
+        guard let shortcutIdentifier = QuickAction(fullIdentifier: shortcutType) ,
+            let tabBarController = window?.rootViewController as? UITabBarController
+            else { return false }
+
+        switch shortcutIdentifier {
+        case .OpenFavourites:
+            tabBarController.selectedIndex = 0
+        case .OpenDiscover:
+            tabBarController.selectedIndex = 1
+        case .NewRestaurant:
+            if let restaurantTableViewController = tabBarController.viewControllers?[0].children[0] {
+                restaurantTableViewController.performSegue(withIdentifier: "addRestaurant", sender: restaurantTableViewController)
+            } else {
+                return false
+            }
+        }
         return true
     }
 

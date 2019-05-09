@@ -27,7 +27,7 @@ class RestaurantDetailViewController: UIViewController {
     @IBAction func rateRestaurant (segue: UIStoryboardSegue) {
         if let rating = segue.identifier {
             self.restaurantDetails?.rating = rating
-            database.updateRestaurant(restaurant: restaurantDetails)
+            database.updateRestaurant(restaurant: restaurantDetails, completion: {_ in})
 
             if let restaurantDetails = self.restaurantDetails {
                 self.restaurantHeaderView.setupHeaderView(restaurantDetails: restaurantDetails)
