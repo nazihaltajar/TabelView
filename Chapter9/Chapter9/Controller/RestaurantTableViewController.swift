@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import UserNotifications
 
 enum CellIdentifier: String {
     case restaurantCellIdentifier
@@ -54,6 +55,13 @@ class RestaurantTableViewController: UIViewController {
         tableView.backgroundView?.isHidden = true
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        presentWalktrough()
+        navigationController?.hidesBarsOnSwipe = true
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showRestaurantDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
@@ -63,13 +71,6 @@ class RestaurantTableViewController: UIViewController {
                     (searchController.isActive) ? searchResults[indexPath.row] : database.restaurantAtIndexpath(indexPath: indexPath)
             }
         }
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        presentWalktrough()
-        navigationController?.hidesBarsOnSwipe = true
     }
 
     private func hideBackgroundView() {
@@ -88,6 +89,42 @@ class RestaurantTableViewController: UIViewController {
         if let walkthroughViewController = storyboard.instantiateViewController(withIdentifier: "WalktroughViewController") as? WalktroughViewController {
             present(walkthroughViewController, animated: true, completion: nil)
         }
+    }
+
+    func prepareNotification() {
+        if database.numberOfRestaurants() <= 0 { return }
+        let randomNum = Int.random(in: 0..<database.numberOfRestaurants())
+        let index = IndexPath(row: randomNum, section: 0)
+        let suggestedRestaurant = database.restaurantAtIndexpath(indexPath: index)
+        let content = UNMutableNotificationContent()
+
+        content.title = "Restaurant Recomandation"
+        content.subtitle = "Try new food today"
+        content.body = "I recommend you to check out \(suggestedRestaurant?.name ?? ""). The restaurant is one of your favourites. It is located at \(suggestedRestaurant?.location ?? "").Would you like to give it a try?"
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["phone": suggestedRestaurant?.phone ?? ""]
+
+        let tempDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+        let tempFileURL = tempDirURL.appendingPathComponent("suggested-restaurant.jpg")
+
+        if let imageData = suggestedRestaurant?.image, let image = UIImage(data: imageData) {
+            try? image.jpegData(compressionQuality: 1.0)?.write(to: tempFileURL)
+            if let restaurantImage = try? UNNotificationAttachment(identifier: "restaurantImage", url: tempFileURL, options: nil) {
+                content.attachments = [restaurantImage]
+            }
+        }
+        let categoryIdentifier = "foodpin.restaurantaction"
+        let makeReservationAction = UNNotificationAction(identifier: "foodpin.makeReservation", title: "Reserve a table", options: [.foreground])
+        let cancelAction = UNNotificationAction(identifier: "foodpin.cancel", title: "Later", options: [])
+        let category = UNNotificationCategory(identifier: categoryIdentifier, actions: [makeReservationAction, cancelAction], intentIdentifiers: [], options: [])
+
+        UNUserNotificationCenter.current().setNotificationCategories([category])
+        content.categoryIdentifier = categoryIdentifier
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: "foodpin.restaurantSuggestion", content: content, trigger: trigger)
+
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 
     public func searchForResults() {
@@ -262,6 +299,7 @@ extension RestaurantTableViewController: DatabaseContentProtocol {
 
     func didChangeContent() {
         tableView.endUpdates()
+        prepareNotification()
     }
 
     func didInsert(indexPath: IndexPath) {

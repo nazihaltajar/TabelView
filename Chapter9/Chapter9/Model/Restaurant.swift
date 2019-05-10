@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Restaurant {
     var name: String
@@ -19,34 +20,38 @@ class Restaurant {
     var cellType: CellIdentifier = CellIdentifier.restaurantCellIdentifier
     var rating: String
 
-    init(name: String = "", type: String = "", location: String = "", image: Data? = Data(),
+    var dictionary: [String: Any] {
+        return ["name": name, "type": type, "location": location,
+                "phone": phone, "description": description, "isVisited": isVisited, "rating": rating]
+    }
+
+    init(name: String = "", type: String = "", location: String = "", image: Data? = nil,
          phone: String = "", description: String = "", isVisited: Bool = false, rating: String = " ") {
         self.name = name
+        if let image = image {
+            self.image = image
+        } else {
+            self.image = UIImage(named: self.name)?.pngData()
+        }
         self.type = type
         self.location = location
-        self.image = image
         self.phone = phone
         self.description = description
         self.isVisited = isVisited
         self.rating = rating
-        var dictionary: [String: Any] {
-            return ["name": name, "type": type, "location": location, "image": image ?? Data(),
-                    "phone": phone, "description": description, "isVisited": isVisited, "rating": rating]
-        }
     }
 
     convenience init(dictionary: [String: Any]) {
         self.init(name: dictionary["name"] as? String ?? "",
                   type: dictionary["type"] as? String ?? "",
                   location: dictionary["location"] as? String ?? "",
-                  image: dictionary["image"] as? Data,
                   phone: dictionary["phone"] as? String ?? "",
                   description: dictionary["description"] as? String ?? "",
                   isVisited: dictionary["isVisited"] as? Bool ?? false,
                   rating: dictionary["rating"] as? String ?? "")
     }
 
-    convenience init (restaurant: RestaurantMO) {
+    convenience init(restaurant: RestaurantMO) {
        self.init(name: restaurant.name ?? "", type: restaurant.type ?? "", location: restaurant.location ?? "",
                  image: restaurant.image ?? Data(), phone: restaurant.phone ?? "", description: restaurant.summary ?? "",
                  isVisited: restaurant.isVisited, rating: restaurant.rating ?? "")

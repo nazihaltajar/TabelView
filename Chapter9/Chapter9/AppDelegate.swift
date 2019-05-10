@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Firebase
+import UserNotifications
 
 enum QuickAction: String {
     case OpenFavourites = "OpenFavorites"
@@ -36,7 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //RestaurantGroup.populateDb()
         UITabBar.appearance().tintColor = .tabBarTintColor
         UITabBar.appearance().barTintColor = .black
-
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {(granted, _) in
+            if granted {
+                print("User notifications are allowed.")
+            } else {
+                print("User notifications are not allowed")
+            }
+        }
+        UNUserNotificationCenter.current().delegate = self
         return true
     }
 
@@ -78,5 +86,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.actionIdentifier == "foodpin.makeReservation",
+            let phone = response.notification.request.content.userInfo["phone"],
+            let url = URL(string: "tel://\(phone)"),
+            UIApplication.shared.canOpenURL(url) {
+                print("Make reservation")
+                UIApplication.shared.open(url)
+        }
+        completionHandler()
     }
 }
