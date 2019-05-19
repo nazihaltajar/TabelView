@@ -53,6 +53,8 @@
 		EE9DB37C226DE3980076CFD2 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */; };
 		EE9DB37E226DFE1D0076CFD2 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */; };
 		EEA406352282F48500CA4338 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEA406342282F48500CA4338 /* GoogleService-Info.plist */; };
+		EEACC102229155E90008C456 /* RestaurantCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEACC101229155E90008C456 /* RestaurantCollectionViewCell.swift */; };
+		EEACC106229159700008C456 /* RestaurantCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEACC105229159700008C456 /* RestaurantCollectionViewController.swift */; };
 		EEB3E20F2249042300E01596 /* RestaurantGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB3E20E2249042300E01596 /* RestaurantGroup.swift */; };
 /* End PBXBuildFile section */
 
@@ -109,6 +111,8 @@
 		EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		EE9DB37F226EE8F90076CFD2 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		EEA406342282F48500CA4338 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EEACC101229155E90008C456 /* RestaurantCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewCell.swift; sourceTree = "<group>"; };
+		EEACC105229159700008C456 /* RestaurantCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantCollectionViewController.swift; sourceTree = "<group>"; };
 		EEB3E20E2249042300E01596 /* RestaurantGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantGroup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +234,7 @@
 				EE4034EA2268CEF800B0AED2 /* WalktroughViewController.swift */,
 				EE9DB37B226DE3980076CFD2 /* AboutTableViewController.swift */,
 				EE9DB37D226DFE1D0076CFD2 /* WebViewController.swift */,
+				EEACC105229159700008C456 /* RestaurantCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				EE8D92C92253B68D005C9C86 /* RestaurantDetailSeparatorCell.swift */,
 				EE8D92CB2253B7B5005C9C86 /* RestaurantDetailMapCell.swift */,
 				EE937B35225B69CF00BD5F2D /* RoundedTextFiled.swift */,
+				EEACC101229155E90008C456 /* RestaurantCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -464,8 +470,10 @@
 				EE33F91A227B1A0600702DB2 /* FirebaseDatabase.swift in Sources */,
 				EE9DB37E226DFE1D0076CFD2 /* WebViewController.swift in Sources */,
 				EE4034E92268C4B100B0AED2 /* WalkthroughPageViewController.swift in Sources */,
+				EEACC106229159700008C456 /* RestaurantCollectionViewController.swift in Sources */,
 				EE826EB8224D05FE00BA1588 /* RestaurantDetailTextCell.swift in Sources */,
 				EE826EB6224D00B400BA1588 /* RestaurantDetailIconTextCellTableViewCell.swift in Sources */,
+				EEACC102229155E90008C456 /* RestaurantCollectionViewCell.swift in Sources */,
 				EE8EFA6D2244F78700E478A9 /* UIColor-Extension.swift in Sources */,
 				EE93B1CD225F58DB00B2D92A /* Restaurant.swift in Sources */,
 				EE9DB37C226DE3980076CFD2 /* AboutTableViewController.swift in Sources */,

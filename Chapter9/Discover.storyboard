@@ -1,62 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="bfE-uD-dH7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7ZH-5R-gcQ">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Discover-->
-        <scene sceneID="ecv-Yj-Qmc">
+        <!--Restaurant Collection View Controller-->
+        <scene sceneID="DSo-TJ-iYb">
             <objects>
-                <tableViewController id="Pzt-wR-Vem" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="62U-bX-YQY">
+                <collectionViewController id="7ZH-5R-gcQ" customClass="RestaurantCollectionViewController" customModule="Chapter9" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="aPf-t5-2XN">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="discoverIdentifier" id="axE-li-MOv">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="axE-li-MOv" id="xd9-Sl-bbY">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="v8g-93-LNu">
+                            <size key="itemSize" width="101" height="85"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="mycell" id="ftR-Na-eCO" customClass="RestaurantCollectionViewCell" customModule="Chapter9" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="101" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="101" height="85"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zeQ-1G-OCm">
+                                            <rect key="frame" x="0.0" y="0.0" width="101" height="64"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lrv-G0-e5T">
+                                            <rect key="frame" x="0.0" y="64" width="101" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="Lrv-G0-e5T" firstAttribute="top" secondItem="zeQ-1G-OCm" secondAttribute="bottom" id="4rc-h4-GDa"/>
+                                    <constraint firstAttribute="bottom" secondItem="Lrv-G0-e5T" secondAttribute="bottom" id="6eK-V6-otX"/>
+                                    <constraint firstItem="zeQ-1G-OCm" firstAttribute="top" secondItem="ftR-Na-eCO" secondAttribute="top" id="EDa-ld-U7D"/>
+                                    <constraint firstItem="zeQ-1G-OCm" firstAttribute="leading" secondItem="ftR-Na-eCO" secondAttribute="leading" id="FA2-sd-RJg"/>
+                                    <constraint firstAttribute="trailing" secondItem="Lrv-G0-e5T" secondAttribute="trailing" id="H1T-Yk-Yl9"/>
+                                    <constraint firstItem="Lrv-G0-e5T" firstAttribute="leading" secondItem="ftR-Na-eCO" secondAttribute="leading" id="LTk-5Q-mNx"/>
+                                    <constraint firstAttribute="trailing" secondItem="zeQ-1G-OCm" secondAttribute="trailing" id="Ta8-oL-UjI"/>
+                                    <constraint firstItem="Lrv-G0-e5T" firstAttribute="top" secondItem="zeQ-1G-OCm" secondAttribute="bottom" id="rN8-pa-RXi"/>
+                                    <constraint firstItem="Lrv-G0-e5T" firstAttribute="top" secondItem="zeQ-1G-OCm" secondAttribute="bottom" id="xJj-Dj-xoF"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="cellImage" destination="zeQ-1G-OCm" id="Hc3-Ts-k4X"/>
+                                    <outlet property="cellName" destination="Lrv-G0-e5T" id="V1N-7G-e4Z"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
                         <connections>
-                            <outlet property="dataSource" destination="Pzt-wR-Vem" id="sD4-RH-NX6"/>
-                            <outlet property="delegate" destination="Pzt-wR-Vem" id="Pzr-zj-5sF"/>
+                            <outlet property="dataSource" destination="7ZH-5R-gcQ" id="aJG-92-fyy"/>
+                            <outlet property="delegate" destination="7ZH-5R-gcQ" id="cRC-Ga-peS"/>
                         </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Discover" id="cGL-3E-44M"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ktm-19-gxe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VIV-nU-9Vl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1455" y="779"/>
-        </scene>
-        <!--Discover-->
-        <scene sceneID="ulv-OK-N9X">
-            <objects>
-                <navigationController id="bfE-uD-dH7" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Discover" image="discover" id="b2l-kM-sin"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zmZ-og-bay">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Pzt-wR-Vem" kind="relationship" relationship="rootViewController" id="YvT-kM-Cs2"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wSa-qm-d3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="425" y="779"/>
+            <point key="canvasLocation" x="327.536231884058" y="712.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="discover" width="35" height="20"/>
-    </resources>
 </document>
